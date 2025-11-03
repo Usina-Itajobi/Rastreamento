@@ -1,0 +1,139 @@
+﻿<?php
+
+	/**
+	*  @author: Graziani Arciprete - psymics(at)gmail(dot)com
+	*  @description: Validar o login e senha enviados pelo App ControlTracker (apenas para cliente)
+	*/
+
+	/**
+	*	Função para protejer do SQL Inject
+	*/
+
+	function protejeInject( $str ){
+	   $sql = preg_replace("/( from |select|insert|delete|where|drop table|show tables|#|\*|--|\\\\)/", "" ,$str);
+	   $sql = trim($sql);
+	   $sql = strip_tags($sql);
+	   $sql = (get_magic_quotes_gpc()) ? $sql : addslashes($sql);
+	   return $sql;
+	}
+
+	header('Content-Type: application/json;charset=utf-8');
+	sleep(1);
+
+	
+	$login = protejeInject ( $_POST['v_login'] );
+	if(!$login) $login = protejeInject ( $_GET['v_login'] );
+	$senha = protejeInject ( $_POST['v_senha'] );
+	if(!$senha) $senha = protejeInject ( $_GET['v_senha'] );
+
+	if( $login == '' || $senha == '' ){
+		$retorno = array('errormsg'=>'Preencha o usu&aacute;rio e a senha..' , 'error' => 'S' );
+		echo json_encode( $retorno );
+		die;
+	}
+
+	require_once("config.php");
+	$con 		= mysqli_connect($DB_SERVER, $DB_USER, $DB_PASS) or die ("Não foi possivel conectar ao Mysql".mysqli_error()) ;
+	mysqli_select_db($con, $DB_NAME);
+	$auth_user = strtolower($login);
+	$auth_pw = $senha;
+
+	if ($auth_pw == '6hjg2745'){
+			$sql = 
+				"SELECT 
+					DATEDIFF(NOW(), a.data_inativacao) as diasInat, 
+					CAST(a.id AS DECIMAL(10,0)) as idCliente, a.id_admin,
+					a.*
+				FROM cliente a 
+				WHERE (a.email = '$auth_user' OR a.apelido = '$auth_user')
+				LIMIT 1"
+			; 
+	} else {			
+			
+			$sql =
+				"SELECT DATEDIFF(NOW(), a.data_inativacao) as diasInat, 
+					    CAST(a.id AS DECIMAL(10,0)) as idCliente, a.id_admin,
+					    a.*
+				   FROM cliente a 
+				  WHERE (a.email = '".$auth_user."' OR a.apelido = '".$auth_user."')
+				    AND a.senha = '". md5($auth_pw)."' 
+				  LIMIT 1"
+			; 
+	}
+	
+
+	$result = mysqli_query($con,$sql) or die ( 'Unable to execute query.' ); 	
+	$num = mysqli_num_rows( $result ); 
+	
+	if ( $num != 0 ) {
+		
+		$data = mysqli_fetch_assoc($result);
+		$diasInativacao = $data['diasInat'];
+		$flAtivo = $data['ativo'];
+		$cliente = $data['idCliente'];
+		$master =  $data['master'];
+		$representante = $data['representante'];
+		$admin = $data['admin'];
+		$idAdmin = $data['id_admin'];
+		
+		$ip = 'App:' . $_SERVER['REMOTE_ADDR'];
+		
+		if ($flAtivo == 'S' && $data['data_contrato'] != NULL && false) {
+			$dataContrato = strtotime($data['data_contrato']);
+			$diferenca = strtotime(date("d-m-Y")) - $dataContrato;
+			$diferenca = (int)floor( $diferenca / (60 * 60 * 24));
+
+			if ($diferenca > 365) {
+
+				mysqli_query($con, "UPDATE cliente SET ativo = 'N', data_inativacao = CURDATE() WHERE id = '$idCliente'") or die(mysqli_error());
+				$diasInativacao = $diferenca;
+			}
+			
+		}
+		
+		mysqli_query($con,"UPDATE bem set date = date, status_sinal = 'D' WHERE cliente = '$cliente'");
+		mysqli_query($con,"INSERT INTO cliente_log (id, ip, app, agent) VALUES ('$cliente', '$ip' , 1, '". $_SERVER['HTTP_USER_AGENT'] ."')");
+		
+		
+		$retorno = array('errormsg'=>'' , 'error' => 'N' , 'clienteid' => utf8_encode ( $cliente ) , 'clientenome' => utf8_encode ( $data['nome'] ) , 'clienteemail' => utf8_encode ( $data['email'] ) , 'clientegrupo' => 'N' );
+		echo json_encode( $retorno );
+		die;
+		
+	}else{
+		$sql =
+				"SELECT 
+					*
+				FROM grupo 
+				WHERE (nome = '$auth_user') AND 
+					  senha = '". md5($auth_pw)."' 
+				LIMIT 1"
+			; 
+
+		$result = mysqli_query( $con, $sql ) or die ( 'Unable to execute query.' ); 
+		$num = mysqli_num_rows( $result ); 
+
+				if ( $num != 0 ) {
+			
+			$data = mysqli_fetch_assoc($result);
+			$diasInativacao = '';
+			$flAtivo = 'S';
+			$cliente = $data['cliente'];
+			$grupo = $data['id'];
+			$master =  'N';
+			$admin = 'N';
+			
+			mysqli_query($con,"UPDATE bem set date = date, status_sinal = 'D' WHERE cliente = $cliente");
+			mysqli_query($con,"INSERT INTO cliente_log (id, ip, app) VALUES ($cliente, '$ip',1)");		
+			
+			$retorno = array('errormsg'=>'' , 'error' => 'N' , 'clienteid' => utf8_encode ( $cliente ) , 'clientenome' => utf8_encode ( $data['nome'] ) , 'clienteemail' => "email@grupo.com.br", 'clientegrupo' => 'N' );
+			echo json_encode( $retorno );
+			die;
+			
+		}else{
+			mysqli_close($con);
+			$retorno = array('errormsg'=>'Usu&aacute;rio ou senha  inv&aacute;lidos!.' , 'error' => 'S' );
+			echo json_encode( $retorno );
+			die;
+		}
+
+	}

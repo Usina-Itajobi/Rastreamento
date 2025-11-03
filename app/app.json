@@ -1,0 +1,45 @@
+{
+  "name": "CRastreamento",
+  "displayName": "CRastreamento",
+  "expo": {
+    "name": "CTracker CTR",
+    "slug": "ctracker",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "icon": "./src/assets/images/icon.jpeg",
+    "ios": {
+      "bundleIdentifier": "br.com.ctracker.app",
+      "buildNumber": "1.0.0",
+      "config": {
+        "googleMapsApiKey": "AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk"
+      }
+    },
+    "android": {
+      "package": "br.com.ctracker.app",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk"
+        }
+      }
+    },
+    "description": "C-tracker: Track your car and truck made with expo react native bare workflow",
+    "extra": {
+      "eas": {
+        "projectId": "61cd21b0-39fc-4d1e-baff-e57bed3e4eec"
+      }
+    },
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "c-rastreamento",
+          "organization": "ctracker"
+        }
+      ]
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+        {
+            "type": "shell",
+            "command": "adb shell pm clear br.com.ctracker.app &&  adb shell monkey -p br.com.ctracker.app -c android.intent.category.LAUNCHER 1",
+            "group": "build",
+            "label": "🔃 reset",
+           "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": true
+            }
+        },
+        {
+            "type": "shell",
+            "command": "adb shell am force-stop br.com.ctracker.app && adb shell monkey -p br.com.ctracker.app -c android.intent.category.LAUNCHER 1",
+            "group": "build",
+            "label": "🚪 open",
+           "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": true
+            }
+        },
+        {
+            "type": "shell",
+            "command": "adb shell am force-stop br.com.ctracker.app",
+            "group": "build",
+            "label": "❌ close",
+           "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": true
+            }
+        },
+        {
+            "type": "shell",
+            "command": "cd app && cd ./android && ./gradlew assembleRelease && pkill java && mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/ctracker-ctr-release-$(date +%Y-%m-%d-%H-%M-%S).apk",
+            "group": "build",
+            "label": "📱 apk"
+        },
+        {
+            "type": "shell",
+            "command": "cd app && cd ./android && ./gradlew bundleRelease && cd .. && pkill java",
+            "group": "build",
+            "label": "👤 abb"
+        },
+        {
+            "type": "shell",
+            "command": "open app/android/app/build/outputs/apk/release",
+            "group": "build",
+            "label": "📁 apk",
+           "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": true
+            }
+        },
+        {
+            "type": "shell",
+            "command": "open app/android/app/build/outputs/bundle/release",
+            "group": "build",
+            "label": "📁 abb",
+           "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": true
+            }
+        },
+        {
+            "type": "shell",
+            "command": "maestro test .e2e/clear-app.yaml",
+            "group": "build",
+            "label": "🧹 clear-ios",
+           "presentation": {
+                "echo": false,
+                "reveal": "never",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": true
+            }
+        }
+    ]
+}

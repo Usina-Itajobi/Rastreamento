@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "355831820090",
+    "project_id": "ctracker-ctr",
+    "storage_bucket": "ctracker-ctr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355831820090:android:63028f5137d82886faaa03",
+        "android_client_info": {
+          "package_name": "br.com.ctracker.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo4to6XrSBSuAmWIovVrLP7TG657oKZQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
