@@ -193,7 +193,7 @@ if (!$h) {
                     var login = $("#v_login").val();
 
                     $.ajax({
-                        url: 'https://api.ctracker.com.br/metronic/api/relatorio-km.php',
+                        url: 'https://itajobi.usinaitajobi.com.br/metronic/api/relatorio-km.php',
                         type: 'POST',
                         data: {
                             v_login: login
@@ -218,7 +218,7 @@ if (!$h) {
                     abreLoading();
                     var login = $("#v_login").val();
                     $.ajax({
-                        url: 'https://api.ctracker.com.br/metronic/api/relatorio-speed-novo.php',
+                        url: 'https://itajobi.usinaitajobi.com.br/metronic/api/relatorio-speed-novo.php',
                         type: 'POST',
                         data: {
                             v_login: login
@@ -245,7 +245,7 @@ if (!$h) {
                     var login = $("#v_login").val();
                     var v_h = $("#v_h").val();
                     $.ajax({
-                        url: 'https://api.ctracker.com.br/metronic/api/relatorio-posicao-novo.php',
+                        url: 'https://itajobi.usinaitajobi.com.br/metronic/api/relatorio-posicao-novo.php',
                         type: 'POST',
                         data: {
                             v_login: login,

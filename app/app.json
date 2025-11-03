@@ -2,13 +2,13 @@
   "name": "CRastreamento",
   "displayName": "CRastreamento",
   "expo": {
-    "name": "CTracker CTR",
-    "slug": "ctracker",
+    "name": "Rastreamento Grupo Itajobi",
+    "slug": "Rastreamento Grupo Itajobi",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
-    "icon": "./src/assets/images/icon.jpeg",
+  "icon": "./src/assets/images/logo.jpg",
     "ios": {
       "bundleIdentifier": "br.com.ctracker.app",
       "buildNumber": "1.0.0",

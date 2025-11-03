@@ -79,7 +79,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
              marginTop: -50,
            }}
          > */}
-            <Image
+            {/* <Image
               source={{ uri: contacts.logo }}
               style={{
                 width: 218,
@@ -88,7 +88,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
                 marginTop: 60,
                 alignSelf: 'center',
               }}
-            />
+            /> */}
             {/* </ImageBackground> */}
             {/* </Header> */}
           </>

@@ -450,14 +450,14 @@ $id_cliente = $rs['id_cliente'];
 
 
 			if (i == 0) {
-				var iconeImg = 'https://api.ctracker.com.br/imagens/marker_end.png';
+				var iconeImg = 'https://itajobi.usinaitajobi.com.br/imagens/marker_end.png';
 			} else if (i == (arr.length - 1)) {
-				var iconeImg = 'https://api.ctracker.com.br/imagens/marker_start.png';
+				var iconeImg = 'https://itajobi.usinaitajobi.com.br/imagens/marker_start.png';
 			} else {
 				if (arr[i].ignicao == 'Sim') {
-					var iconeImg = 'https://api.ctracker.com.br/imagens/ignicaoOn.png';
+					var iconeImg = 'https://itajobi.usinaitajobi.com.br/imagens/ignicaoOn.png';
 				} else {
-					var iconeImg = 'https://api.ctracker.com.br/imagens/ignicaoOff.gif';
+					var iconeImg = 'https://itajobi.usinaitajobi.com.br/imagens/ignicaoOff.gif';
 				}
 
 

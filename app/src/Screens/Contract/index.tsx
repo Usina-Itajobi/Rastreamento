@@ -160,7 +160,7 @@ const ContractScreen = (props) => {
 
             <View style={styles.webviewContainer}>
               <WebView
-                source={{ uri: `https://api.ctracker.com.br/contrato-texto.php?h=${selectedAccount.h}` }}
+                source={{ uri: `https://itajobi.usinaitajobi.com.br/contrato-texto.php?h=${selectedAccount.h}` }}
                 style={{ flex: 1 }}
                 javaScriptEnabled
                 onMessage={handleMessage}

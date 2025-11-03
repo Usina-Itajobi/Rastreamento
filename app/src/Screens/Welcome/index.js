@@ -55,7 +55,7 @@ class WelcomeScreen extends Component {
       this.stateHandler('loading', true);
 
       const result = await fetch(
-        `https://api.ctracker.com.br/metronic/api/enterprise.php?id=${code}`,
+        `https://itajobi.usinaitajobi.com.br/metronic/api/enterprise.php?id=${code}`,
         {
           method: 'GET',
           headers: {
@@ -119,12 +119,13 @@ class WelcomeScreen extends Component {
           style={styles.backgroundImage}
         >
           <Image
-            source={require('../../assets/images/Logo_icon.png')}
+            source={require('../../assets/images/logo.jpg')}
             style={{
-              height: 130,
-              width: 100,
+              width: 250,
+              height: 90,
               alignSelf: 'center',
               marginTop: '70%',
+              borderRadius: 12,
             }}
           />
           <View style={{ marginTop: 25 }} />

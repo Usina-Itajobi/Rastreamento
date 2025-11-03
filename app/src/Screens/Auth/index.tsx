@@ -136,7 +136,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
       data = JSON.parse(data);
 
       if (data.error === 'S') {
-        if(data.errormsg){
+        if (data.errormsg) {
           throw new Error(data.errormsg);
         } else {
           throw new Error('Usuário e/ou senha invalido(s).');
@@ -362,7 +362,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
           )}
         </TouchableOpacity>
 
-        {!!imageUrl && (
+        {/* {!!imageUrl && (
           <Image
             source={{ uri: imageUrl }}
             style={{
@@ -372,7 +372,19 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
               marginTop: '10%',
             }}
           />
-        )}
+        )} */}
+
+        {/* //adicionar imagem logo.jgp app\src\assets\images\logo.jpg */}
+        <Image
+          source={require('../../assets/images/logo.jpg')}
+          style={{
+            width: 250,
+            height: 90,
+            alignSelf: 'center',
+            marginTop: '10%',
+            borderRadius: 12,
+          }}
+        />
       </KeyboardAvoidingView>
     </ImageBackground>
   );

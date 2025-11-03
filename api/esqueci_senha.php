@@ -429,7 +429,7 @@ try {
     }
 
     $token = md5(uniqid($idCliente));
-    $urlRedefinicaoSenha = 'https://api.ctracker.com.br/metronic/api/redefinir_senha.php?token=' . $token;
+    $urlRedefinicaoSenha = 'https://itajobi.usinaitajobi.com.br/metronic/api/redefinir_senha.php?token=' . $token;
     $mensagemEnvio = 'Segue em anexo link de redefinição de senha:\n'. $urlRedefinicaoSenha;
 
     $sqlGerarToken = "INSERT INTO `tokens_redefinicao_senha`

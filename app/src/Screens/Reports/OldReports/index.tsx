@@ -9,7 +9,7 @@ import { useAuth } from '../../../context/authContext';
 interface OldReportsProps {}
 
 const OldReports: FC<OldReportsProps> = (props) => {
-  const {selectedAccount} = useAuth();
+  const { selectedAccount } = useAuth();
 
   return (
     <>
@@ -18,7 +18,7 @@ const OldReports: FC<OldReportsProps> = (props) => {
         <View style={styles.webview}>
           <WebView
             source={{
-              uri: `https://api.ctracker.com.br/metronic/api/relatorio-posicao.php?h=${selectedAccount.h}`,
+              uri: `https://itajobi.usinaitajobi.com.br/metronic/api/relatorio-posicao.php?h=${selectedAccount.h}`,
             }}
             useWebKit
           />

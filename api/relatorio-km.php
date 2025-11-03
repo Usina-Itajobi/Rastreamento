@@ -500,7 +500,7 @@ if ($h) {
 
         var login = $("#v_login").val();
         $.ajax({
-            url: 'https://api.ctracker.com.br/metronic/api/relatorio-km-rel.php',
+            url: 'https://itajobi.usinaitajobi.com.br/metronic/api/relatorio-km-rel.php',
             type: 'POST',
             data: {
                 v_login: login,

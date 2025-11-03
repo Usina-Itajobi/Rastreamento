@@ -10,7 +10,7 @@ import {
   ScrollView,
   TouchableOpacity,
   RefreshControl,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -81,7 +81,9 @@ const PendingBillsScreen = (props) => {
        * Consultar o acesso do usuário ao aplicativo. Caso ele tenha contas em atraso, seu acesso ao aplicativo será bloqueado.
        */
       const getBloqueioApp = await fetch(
-        `https://api.ctracker.com.br/metronic/api/get_bloqueio_app.php?&h=${tipo === 'esqueciSenha' ? token : selectedAccount.h}`,
+        `https://itajobi.usinaitajobi.com.br/metronic/api/get_bloqueio_app.php?&h=${
+          tipo === 'esqueciSenha' ? token : selectedAccount.h
+        }`,
       );
 
       let bloqueioAppData = await getBloqueioApp.text();
@@ -91,52 +93,13 @@ const PendingBillsScreen = (props) => {
         bloqueioAppData.data &&
         bloqueioAppData.data.bloqueio_automatico_cobranca
       ) {
-        if (bloqueioAppData.data.bloqueio_automatico_cobranca === 'N') {
-          if (tipo === 'esqueciSenha') {
-            props.navigation.goBack();
-          } else {
-            props.navigation.navigate('AppStack');
-          }
+        if (tipo === 'esqueciSenha') {
+          props.navigation.goBack();
         } else {
-          const getBoletos = await fetch(
-            `https://api.ctracker.com.br/metronic/api/get_boletos_pendentes.php?&h=${tipo === 'esqueciSenha' ? token : selectedAccount.h}`,
-          );
-          let boletosData = await getBoletos.text();
-          boletosData = JSON.parse(boletosData);
-
-          if (boletosData.data) {
-            const qtde = boletosData.data.length;
-            setBillsQtde(qtde);
-
-            if (!(qtde > 0)) {
-              if (tipo === 'esqueciSenha') {
-                props.navigation.goBack();
-              } else {
-                props.navigation.navigate('AppStack');
-              }
-            } else {
-              setBills(boletosData.data.reverse());
-              seFlatListItemIndex(boletosData.data.length - 1);
-            }
-          } else {
-            if(boletosData?.vencidosRecentes){
-              Alert.alert(
-                'Pagamento em Atraso',
-                'Detectamos boletos vencidos. Caso o pagamento não seja realizado, o acesso ao aplicativo poderá ser bloqueado.\n\nSe você já efetuou o pagamento, favor desconsiderar este aviso.',
-              );
-            }
-            if (tipo === 'esqueciSenha') {
-              props.navigation.goBack();
-            } else {
-              props.navigation.navigate('AppStack');
-            }
-          }
+          props.navigation.navigate('AppStack');
         }
       } else {
-        Alert.alert(
-          'Erro',
-          'Ocorreu um erro ao carregar algumas informações!',
-        );
+        Alert.alert('Erro', 'Ocorreu um erro ao carregar algumas informações!');
       }
     } catch (error) {
       console.error(error);
@@ -176,6 +139,10 @@ const PendingBillsScreen = (props) => {
     getBills();
   }, [billsQtde, bill.bol_paynumber, selectedAccount?.username, token]);
 
+  useEffect(() => {
+    props.navigation.navigate('AppStack');
+  }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
       {!tipo && loading ? (
@@ -203,12 +170,11 @@ const PendingBillsScreen = (props) => {
           </View>
         </S.ContainerAnimation>
       ) : (
-          <ImageBackground
-            resizeMode="cover"
-            source={require('../../assets/images/VheicleBackground.jpg')}
-            style={{ flex: 1 }}
-          >
-
+        <ImageBackground
+          resizeMode="cover"
+          source={require('../../assets/images/VheicleBackground.jpg')}
+          style={{ flex: 1 }}
+        >
           <S.MainLabel>
             Favor entrar em contato com Financeiro {'\n'} (16) 99733-9299,
             existem faturas em atraso, seu acesso foi bloqueado!
@@ -288,29 +254,32 @@ const PendingBillsScreen = (props) => {
                       <S.MonthText>
                         {currentItem.cnrt_vencimento
                           ? capitalizeFirstLetter(
-                              moment(currentItem.cnrt_vencimento).format('MMMM'),
+                              moment(currentItem.cnrt_vencimento).format(
+                                'MMMM',
+                              ),
                             )
                           : '----'}
                       </S.MonthText>
                       <S.MonthTextUnderline />
                     </View>
 
-                    {bills.length > 0 && flatListItemIndex < bills.length - 1 && (
-                      <TouchableOpacity
-                        activeOpacity={0.8}
-                        style={{
-                          position: 'absolute',
-                          right: 20,
-                        }}
-                        onPress={() => nextItem()}
-                      >
-                        <MaterialCommunityIcons
-                          name={'arrow-right'}
-                          size={30}
-                          color={'#F69C33'}
-                        />
-                      </TouchableOpacity>
-                    )}
+                    {bills.length > 0 &&
+                      flatListItemIndex < bills.length - 1 && (
+                        <TouchableOpacity
+                          activeOpacity={0.8}
+                          style={{
+                            position: 'absolute',
+                            right: 20,
+                          }}
+                          onPress={() => nextItem()}
+                        >
+                          <MaterialCommunityIcons
+                            name={'arrow-right'}
+                            size={30}
+                            color={'#F69C33'}
+                          />
+                        </TouchableOpacity>
+                      )}
                   </S.MonthContainer>
 
                   <S.BillDescriptionMainContainer>
@@ -342,14 +311,22 @@ const PendingBillsScreen = (props) => {
                           marginTop: 1,
                         }}
                       >
-                        {currentItem.cnrt_data_pgto ? 'Paga' : 'Pagamento Pendente'}
+                        {currentItem.cnrt_data_pgto
+                          ? 'Paga'
+                          : 'Pagamento Pendente'}
                       </S.BillDescriptionTitle>
                     </S.BillDescriptionContainer>
 
                     <S.BillDescriptionContainer>
-                      <S.BillDescriptionTitle>Lançamento</S.BillDescriptionTitle>
+                      <S.BillDescriptionTitle>
+                        Lançamento
+                      </S.BillDescriptionTitle>
                       <S.BillDescriptionTitle
-                        style={{ color: '#FFF', fontWeight: '500', marginTop: 4 }}
+                        style={{
+                          color: '#FFF',
+                          fontWeight: '500',
+                          marginTop: 4,
+                        }}
                       >
                         {currentItem.cnrt_data_lancamento
                           ? moment(currentItem.cnrt_data_lancamento).format(
@@ -360,21 +337,35 @@ const PendingBillsScreen = (props) => {
                     </S.BillDescriptionContainer>
 
                     <S.BillDescriptionContainer>
-                      <S.BillDescriptionTitle>Vencimento</S.BillDescriptionTitle>
+                      <S.BillDescriptionTitle>
+                        Vencimento
+                      </S.BillDescriptionTitle>
                       <S.BillDescriptionTitle
-                        style={{ color: '#FFF', fontWeight: '500', marginTop: 4 }}
+                        style={{
+                          color: '#FFF',
+                          fontWeight: '500',
+                          marginTop: 4,
+                        }}
                       >
                         {currentItem.cnrt_vencimento
-                          ? moment(currentItem.cnrt_vencimento).format('DD/MM/YYYY')
+                          ? moment(currentItem.cnrt_vencimento).format(
+                              'DD/MM/YYYY',
+                            )
                           : '----'}
                       </S.BillDescriptionTitle>
                     </S.BillDescriptionContainer>
 
                     {currentItem.cnrt_data_pgto && (
                       <S.BillDescriptionContainer>
-                        <S.BillDescriptionTitle>Pagamento</S.BillDescriptionTitle>
+                        <S.BillDescriptionTitle>
+                          Pagamento
+                        </S.BillDescriptionTitle>
                         <S.BillDescriptionTitle
-                          style={{ color: '#FFF', fontWeight: '500', marginTop: 4 }}
+                          style={{
+                            color: '#FFF',
+                            fontWeight: '500',
+                            marginTop: 4,
+                          }}
                         >
                           {currentItem.cnrt_data_pgto
                             ? moment(currentItem.cnrt_data_pgto).format(
@@ -385,7 +376,9 @@ const PendingBillsScreen = (props) => {
                       </S.BillDescriptionContainer>
                     )}
 
-                    <S.BillDescriptionContainer style={{ maxWidth: width / 1.2 }}>
+                    <S.BillDescriptionContainer
+                      style={{ maxWidth: width / 1.2 }}
+                    >
                       <S.BillDescriptionTitle>Nº Boleto</S.BillDescriptionTitle>
                       <S.BillDescriptionTitle
                         selectable
@@ -402,10 +395,16 @@ const PendingBillsScreen = (props) => {
                       </S.BillDescriptionTitle>
                     </S.BillDescriptionContainer>
 
-                    <S.BillDescriptionContainer style={{ maxWidth: width / 1.2 }}>
+                    <S.BillDescriptionContainer
+                      style={{ maxWidth: width / 1.2 }}
+                    >
                       <S.BillDescriptionTitle>Descrição</S.BillDescriptionTitle>
                       <S.BillDescriptionTitle
-                        style={{ color: '#FFF', fontWeight: '500', marginTop: 4 }}
+                        style={{
+                          color: '#FFF',
+                          fontWeight: '500',
+                          marginTop: 4,
+                        }}
                       >
                         {currentItem.cnrt_desc ? currentItem.cnrt_desc : '----'}
                       </S.BillDescriptionTitle>

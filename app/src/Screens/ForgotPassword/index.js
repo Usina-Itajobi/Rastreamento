@@ -48,7 +48,7 @@ class ForgotPasswordScreen extends Component {
 
       const options = {
         method: 'POST',
-        url: 'https://api.ctracker.com.br/metronic/api/esqueci_senha.php',
+        url: 'https://itajobi.usinaitajobi.com.br/metronic/api/esqueci_senha.php',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -203,7 +203,7 @@ class ForgotPasswordScreen extends Component {
             onPress={() => this.props.navigation.navigate('Welcome')}
           />
 
-          <Text style={styles.title}>Esqueci a Senha</Text>
+          <Text style={styles.title}>Esqueci as Senha</Text>
           <View style={styles.rectangle1} />
 
           <View

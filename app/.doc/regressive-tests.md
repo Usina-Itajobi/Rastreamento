@@ -3,7 +3,7 @@
 ## Inicio
 
 - Icon
-- Nome do app (CTracker CTR)
+- Nome do app (Rastreamento Grupo Itajobi)
 - Splash Screen
 
 ## Login
