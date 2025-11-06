@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import WelcomeScreen from '../Screens/Welcome';
+// import WelcomeScreen from '../Screens/Welcome';
 import ForgotPasswordScreen from '../Screens/ForgotPassword';
 import PendingBillsScreen from '../Screens/PendingBills';
 import ProfilesChooseScreen from '../Screens/ProfilesChoose';
@@ -16,7 +16,7 @@ export type AuthScreenParams = {
 };
 
 export type RootStackParamList = {
-  Welcome: undefined;
+  // Welcome: undefined;
   ForgotPassword: undefined;
   PendingBills: undefined;
   AuthStack: undefined;
@@ -39,12 +39,12 @@ const AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Welcome"
+        initialRouteName="AuthStack"
         screenOptions={{
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        {/* <Stack.Screen name="Welcome" component={WelcomeScreen} /> */}
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="PendingBills" component={PendingBillsScreen} />
         <Stack.Screen name="ProfilesChoose" component={ProfilesChooseScreen} />

@@ -62,7 +62,7 @@ const Reports = (props) => {
 
       const options = {
         method: 'POST',
-        url: 'https://ctracker.com.br/metronic/api/listar_veiculos.php',
+        url: 'https://itajobi.usinaitajobi.com.br/metronic/api/listar_veiculos.php',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -256,7 +256,7 @@ Velocidade :  ${info.velocidade} KM/h`;
 
       const options = {
         method: 'POST',
-        url: `https://ctracker.com.br/metronic/api/rel_position.php`,
+        url: `https://itajobi.usinaitajobi.com.br/metronic/api/rel_position.php`,
         headers: {
           'Content-Type': 'multipart/form-date',
         },
@@ -319,7 +319,7 @@ Velocidade :  ${info.velocidade} KM/h`;
 
   return (
     <>
-      <Header title="Relatório Posições" {...props} showBackButton/>
+      <Header title="Relatório Posições" {...props} showBackButton />
       <ImageBackground
         source={assets.images.vheicle_background}
         style={{ flex: 1 }}

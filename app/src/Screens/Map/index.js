@@ -64,19 +64,24 @@ function Map(props) {
       try {
         const accessUserName = selectedAccount.username;
         const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+        console.log('enterprise:', enterprise);
 
-        const { baseUrl } = JSON.parse(enterprise);
+        const baseUrl = 'https://itajobi.usinaitajobi.com.br';
+        console.log('baseUrl:', baseUrl);
 
-        const result = await fetch(
-          `${baseUrl}/metronic/api/get_veiculos.php?&v_login=${accessUserName}`,
-        );
+        const url = `${baseUrl}/metronic/api/get_veiculos.php?&v_login=${accessUserName}`;
+        console.log('fetch URL:', url);
+
+        const result = await fetch(url);
         let data = await result.text();
+        console.log('fetch result text:', data);
 
         if (Platform.OS === 'android') {
           data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
         }
 
         data = JSON.parse(data);
+        console.log('parsed data:', data);
 
         if (firstAccess) {
           if (data[0]?.lat && data[0]?.lng) {
@@ -148,7 +153,7 @@ function Map(props) {
     const interval = setInterval(() => {
       getVehicles();
 
-      if(vehicleSelected?.id){
+      if (vehicleSelected?.id) {
         getVehicleUnique(vehicleSelected.id, false);
       }
     }, 30000);
@@ -175,30 +180,35 @@ function Map(props) {
   }
 
   async function getVehicleUnique(id, loading = true) {
-    if(loadingVehicleUnique || !id){
+    if (loadingVehicleUnique || !id) {
       return;
     }
 
-    if(loading) {
+    if (loading) {
       setLoadingVehicleUnique(true);
     }
 
     try {
       const accessToken = selectedAccount.h;
       const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+      console.log('enterprise:', enterprise);
 
       const { baseUrl } = JSON.parse(enterprise);
+      console.log('baseUrl:', baseUrl);
 
-      const result = await fetch(
-        `${baseUrl}/metronic/api/get_veiculo.php?&h=${accessToken}&id=${id}`,
-      );
+      const url = `${baseUrl}/metronic/api/get_veiculo.php?&h=${accessToken}&id=${id}`;
+      console.log('fetch URL:', url);
+
+      const result = await fetch(url);
       let data = await result.text();
+      console.log('fetch result text:', data);
 
       if (Platform.OS === 'android') {
         data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
       }
 
       data = JSON.parse(data);
+      console.log('parsed data:', data);
 
       setVehicleSelected(data?.data || null);
     } catch (error) {
@@ -512,8 +522,7 @@ function Map(props) {
                     const selected = vehicle.find((v) => v.id_bem === i.id_bem);
                     setVehiclesFilter(() => [selected]);
 
-                    getVehicleUnique(i.id_bem)
-
+                    getVehicleUnique(i.id_bem);
                   } catch (error) {
                     console.log(error);
                   }
@@ -546,7 +555,7 @@ function Map(props) {
                     </Text>
                   </View>
                 </View>
-                {/*<Callout
+                {/* <Callout
                   style={
                     Platform.OS === 'ios'
                       ? {
@@ -562,26 +571,27 @@ function Map(props) {
                   onPress={() => onBlurVehicle(Number(i.id_bem))}
                 >
                   <CalloutVehicle vehicle={i} />
-                </Callout>*/}
+                </Callout> */}
               </Marker>
             ))}
           </MapView>
         )}
 
-
-        {vehicleSelected || loadingVehicleUnique? (
-          <VehicleBottomSheet vehicle={vehicleSelected} loading={loadingVehicleUnique} onClose={closeBottomSheet} />
-        ):(
+        {vehicleSelected || loadingVehicleUnique ? (
+          <VehicleBottomSheet
+            vehicle={vehicleSelected}
+            loading={loadingVehicleUnique}
+            onClose={closeBottomSheet}
+          />
+        ) : (
           <BottomSheet
             vehicles={vehicle}
             animateToCoordinateVehicle={animateToCoordinateVehicle}
           />
         )}
-
       </SafeAreaView>
     </>
   );
 }
-
 
 export default Map;

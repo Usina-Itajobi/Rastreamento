@@ -7,7 +7,7 @@
 - Adicionar chave google key para mapas
 
 ```js
-<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk"/>
+<meta-data android:name="com.google.android.geo.API_KEY" android:value="INSERIRNOVAKEY"/>
 ```
 
 - Adicionar Config Icons
@@ -81,7 +81,7 @@ import GoogleMaps
 class AppDelegate: RCTAppDelegate {
   override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     // CONFIG RN MAPS
-    GMSServices.provideAPIKey("AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk")
+    GMSServices.provideAPIKey("INSERIRNOVAKEY")
     //
 
 ```

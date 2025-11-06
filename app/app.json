@@ -13,7 +13,7 @@
       "bundleIdentifier": "br.com.ctracker.app",
       "buildNumber": "1.0.0",
       "config": {
-        "googleMapsApiKey": "AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk"
+        "googleMapsApiKey": "INSERIRNOVAKEY"
       }
     },
     "android": {
@@ -21,7 +21,7 @@
       "versionCode": 1,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk"
+          "apiKey": "INSERIRNOVAKEY"
         }
       }
     },

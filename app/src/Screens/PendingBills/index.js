@@ -63,7 +63,7 @@ const PendingBillsScreen = (props) => {
   const logOut = async () => {
     await AsyncStorage.clear()
       .then(() => {
-        props.navigation.navigate('Welcome');
+        props.navigation.navigate('AuthStack');
       })
       .catch(() => {
         Alert.alert('Ocorreu um erro!');

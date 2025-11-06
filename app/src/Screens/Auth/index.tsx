@@ -10,8 +10,8 @@ import {
   Dimensions,
   Image,
   Alert,
+  TextInput,
 } from 'react-native';
-import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { OneSignal } from 'react-native-onesignal';
@@ -27,16 +27,17 @@ import styles from './styles';
 import { AuthScreenParams } from '../../navigation';
 import { Account, useAuth } from '../../context/authContext';
 
-interface Enterprise {
-  baseUrl: string;
-  brand: string;
-}
+// interface Enterprise {
+//   baseUrl: string;
+//   brand: string;
+// }
 
 interface AuthScreenProps {
   navigation: any;
 }
 
 const AuthScreen: React.FC<AuthScreenProps> = () => {
+  // console.log('estou aqui');
   const navigation = useNavigation();
   const route = useRoute();
   const { top } = useSafeAreaInsets();
@@ -44,7 +45,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
 
   const { addAccountMode } = (route.params as AuthScreenParams) || {};
 
-  const [enterprise, setEnterprise] = useState<Enterprise | null>(null);
+  // const [enterprise, setEnterprise] = useState<Enterprise | null>(null);
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -56,7 +57,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
     if (addAccountMode && __DEV__) {
       //         Login: logfaz
       // Senha:1234
-      // Login: conecta
+      // Login: carolo
       // Senha:6hjg2745
       // Login: fabianobazan
       // Senha:1234
@@ -64,8 +65,8 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
       setUsername('fabianobazan');
       setPassword('6hjg2745');
     } else if (__DEV__) {
-      setAccountName('Conecta');
-      setUsername('conecta');
+      setAccountName('carolo');
+      setUsername('carolo');
       setPassword('6hjg2745');
     }
   }, [addAccountMode]);
@@ -87,16 +88,16 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
   useEffect(() => {
     const initializePlayerId = async () => {
       try {
-        const enterpriseData = await AsyncStorage.getItem(
-          '@ctracker:enterprise',
-        );
-        if (enterpriseData) {
-          const parsedEnterprise = JSON.parse(enterpriseData);
-          setEnterprise(parsedEnterprise);
-          setImageUrl(parsedEnterprise.brand);
-          const state = await OneSignal.User.pushSubscription.getIdAsync();
-          setPlayerId(state || '');
-        }
+        // const enterpriseData = await AsyncStorage.getItem(
+        //   '@ctracker:enterprise',
+        // );
+        // if (enterpriseData) {
+        //   const parsedEnterprise = JSON.parse(enterpriseData);
+        //   setEnterprise(parsedEnterprise);
+        //   setImageUrl(parsedEnterprise.brand);
+        const state = await OneSignal.User.pushSubscription.getIdAsync();
+        setPlayerId(state || '');
+        // }
       } catch (error) {
         console.error('Error initializing player ID:', error);
         Sentry.captureException(error, {
@@ -118,12 +119,15 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
     try {
       setLoading(true);
 
-      if (!enterprise?.baseUrl) {
-        throw new Error('Enterprise URL not found');
-      }
+      // if (!enterprise?.baseUrl) {
+      //   throw new Error('Enterprise URL not found');
+      // }
+
+      // URL fixa para API sem lógica de enterprise
+      const baseUrl = 'https://itajobi.usinaitajobi.com.br';
 
       const result = await fetch(
-        `${enterprise.baseUrl}/metronic/api/auth.php?v_login=${username}&v_senha=${password}`,
+        `${baseUrl}/metronic/api/auth.php?v_login=${username}&v_senha=${password}`,
         { method: 'POST' },
       );
 
@@ -174,20 +178,16 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
         addDefaultAccount({ ...data, accountName, username });
       }
 
-      if (playerId && enterprise?.baseUrl) {
+      if (playerId) {
         try {
-          await axios.post(
-            `${enterprise.baseUrl}/metronic/api/playerid.php`,
-            null,
-            {
-              params: {
-                email: data.email,
-                user_id: data.user_id || null,
-                tipo_usuario: data.tipo_usuario || null,
-                playerid: playerId,
-              },
+          await axios.post(`${baseUrl}/metronic/api/playerid.php`, null, {
+            params: {
+              email: data.email,
+              user_id: data.user_id || null,
+              tipo_usuario: data.tipo_usuario || null,
+              playerid: playerId,
             },
-          );
+          });
         } catch (error) {
           console.error('Error sending player ID:', error);
           Sentry.captureException(error, {
@@ -216,7 +216,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
         extra: {
           username,
           hasPassword: !!password,
-          hasEnterprise: !!enterprise,
+          // hasEnterprise: !!enterprise,
           hasPlayerId: !!playerId,
         },
       });
@@ -277,69 +277,48 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
         <View style={styles.rectangle1} />
 
         <TextInput
-          label="Nome da Conta (Opcional)"
-          theme={{
-            colors: {
-              placeholder: 'white',
-              text: 'white',
-              primary: 'white',
-            },
-          }}
+          placeholder="Nome da Conta (Opcional)"
           style={{
-            backgroundColor: 'transparent',
+            color: 'white',
             borderBottomColor: 'white',
             borderBottomWidth: 1,
+            backgroundColor: 'transparent',
           }}
           autoCapitalize="none"
           returnKeyType="next"
           value={accountName}
           onChangeText={setAccountName}
-          mode="flat"
         />
 
         <TextInput
-          label="Login"
+          placeholder="Login"
           autoComplete="username"
-          theme={{
-            colors: {
-              placeholder: 'white',
-              text: 'white',
-              primary: 'white',
-            },
-          }}
           style={{
-            backgroundColor: 'transparent',
+            color: 'white',
             borderBottomColor: 'white',
             borderBottomWidth: 1,
+            backgroundColor: 'transparent',
           }}
           autoCapitalize="none"
           returnKeyType="next"
           value={username}
           onChangeText={setUsername}
-          mode="flat"
         />
 
         <TextInput
-          label="Senha"
+          placeholder="Senha"
           autoComplete="password"
-          theme={{
-            colors: {
-              placeholder: 'white',
-              text: 'white',
-              primary: 'white',
-            },
-          }}
           style={{
-            backgroundColor: 'transparent',
+            color: 'white',
             borderBottomColor: 'white',
             borderBottomWidth: 1,
+            backgroundColor: 'transparent',
           }}
           autoCapitalize="none"
           secureTextEntry
           returnKeyType="send"
           value={password}
           onChangeText={setPassword}
-          mode="flat"
         />
 
         <TouchableOpacity
@@ -362,7 +341,8 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
           )}
         </TouchableOpacity>
 
-        {/* {!!imageUrl && (
+        {/* Imagem dinâmica da empresa comentada - não usaremos mais
+        {!!imageUrl && (
           <Image
             source={{ uri: imageUrl }}
             style={{
@@ -375,7 +355,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
         )} */}
 
         {/* //adicionar imagem logo.jgp app\src\assets\images\logo.jpg */}
-        <Image
+        {/* <Image
           source={require('../../assets/images/logo.jpg')}
           style={{
             width: 250,
@@ -384,7 +364,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
             marginTop: '10%',
             borderRadius: 12,
           }}
-        />
+        /> */}
       </KeyboardAvoidingView>
     </ImageBackground>
   );

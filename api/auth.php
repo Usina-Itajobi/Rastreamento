@@ -137,7 +137,7 @@ if ($num != 0) {
 		'email' => utf8_encode($data['email']),
 		'grupo' => 'N',
 		'h' => $h,
-		'keyMaps' => 'AIzaSyBCb29gWS4xewEnSkhn58AkxUPdV8Tv4aM',
+		'keyMaps' => 'INSERIRNOVAKEY',
 		'keyPush' => 'teste',
 		'bloqueio_automatico_cobranca' => $data['bloqueio_automatico_cobranca']
 	);
@@ -189,7 +189,7 @@ if ($num != 0) {
 			'email' => utf8_encode($data['id']),
 			'grupo' => 'N',
 			'h' => $h,
-			'keyMaps' => 'AIzaSyBCb29gWS4xewEnSkhn58AkxUPdV8Tv4aM',
+			'keyMaps' => 'INSERIRNOVAKEY',
 			'keyPush' => 'teste',
 			'text_color' => '0B0B0C',
 			'color' => 'E5E9EE',
@@ -248,7 +248,7 @@ if ($num != 0) {
 				'email' => utf8_encode($data['email']),
 				'grupo' => 'N',
 				'h' => $h,
-				'keyMaps' => 'AIzaSyBCb29gWS4xewEnSkhn58AkxUPdV8Tv4aM',
+				'keyMaps' => 'INSERIRNOVAKEY',
 				'keyPush' => 'teste',
 				'bloqueio_automatico_cobranca' => $data['bloqueio_automatico_cobranca']
 			);

@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 class LogoutScreen extends Component {
   async componentDidMount() {
     AsyncStorage.clear().then(() => {
-      this.props.navigation.navigate('Welcome');
+      this.props.navigation.navigate('AuthStack');
     });
   }
 

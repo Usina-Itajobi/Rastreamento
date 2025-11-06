@@ -61,7 +61,7 @@ const Reports = (props) => {
 
       const options = {
         method: 'POST',
-        url: 'https://ctracker.com.br/metronic/api/listar_veiculos.php',
+        url: 'https://itajobi.usinaitajobi.com.br/metronic/api/listar_veiculos.php',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -225,7 +225,7 @@ const Reports = (props) => {
 
       const options = {
         method: 'POST',
-        url: `https://ctracker.com.br/metronic/api/rel_speed.php`,
+        url: `https://itajobi.usinaitajobi.com.br/metronic/api/rel_speed.php`,
         headers: {
           'Content-Type': 'multipart/form-date',
         },

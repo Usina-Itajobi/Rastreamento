@@ -1,7 +1,21 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
-import { requestMultiple, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import { Modal, View, Text, StyleSheet, ActivityIndicator, Alert, TouchableOpacity, Platform } from 'react-native';
+import {
+  requestMultiple,
+  request,
+  PERMISSIONS,
+  RESULTS,
+} from 'react-native-permissions';
+import {
+  Modal,
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -21,7 +35,7 @@ const ContractScreen = (props) => {
       .then(() => {
         setVisible(false);
         setPodeAceitar(false);
-        navigation.navigate('Welcome');
+        navigation.navigate('AuthStack');
       })
       .catch(() => {
         Alert.alert('Ocorreu um erro!');
@@ -39,13 +53,13 @@ const ContractScreen = (props) => {
   const getLocationAsync = () => {
     return new Promise((resolve, reject) => {
       Geolocation.getCurrentPosition(
-        position => resolve(position),
-        error => reject(error),
+        (position) => resolve(position),
+        (error) => reject(error),
         {
           enableHighAccuracy: true,
           timeout: 10000,
           maximumAge: 10000,
-        }
+        },
       );
     });
   };
@@ -67,11 +81,17 @@ const ContractScreen = (props) => {
           PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
         ]);
 
-        const fineGranted = result[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION] === RESULTS.GRANTED;
-        const coarseGranted = result[PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION] === RESULTS.GRANTED;
+        const fineGranted =
+          result[PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION] === RESULTS.GRANTED;
+        const coarseGranted =
+          result[PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION] ===
+          RESULTS.GRANTED;
 
         if (!fineGranted || !coarseGranted) {
-          Alert.alert('Permissão necessária', 'Permissões de localização são obrigatórias para continuar.');
+          Alert.alert(
+            'Permissão necessária',
+            'Permissões de localização são obrigatórias para continuar.',
+          );
           setLoadingContract(false);
           return;
         }
@@ -80,7 +100,10 @@ const ContractScreen = (props) => {
       if (Platform.OS === 'ios') {
         const status = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
         if (status !== RESULTS.GRANTED) {
-          Alert.alert('Permissão necessária', 'Permissão de localização é obrigatória para continuar.');
+          Alert.alert(
+            'Permissão necessária',
+            'Permissão de localização é obrigatória para continuar.',
+          );
           setLoadingContract(false);
           return;
         }
@@ -94,19 +117,24 @@ const ContractScreen = (props) => {
       form.append('lat', latitude);
       form.append('long', longitude);
 
-      const result = await fetch('https://ctracker.com.br/metronic/api/upload_contrato_pdf.php', {
-        method: 'POST',
-        body: form
-      });
+      const result = await fetch(
+        'https://itajobi.usinaitajobi.com.br/metronic/api/upload_contrato_pdf.php',
+        {
+          method: 'POST',
+          body: form,
+        },
+      );
 
       let dataText = await result.text();
       if (Platform.OS === 'android') {
-        dataText = dataText.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
+        dataText = dataText
+          .replace(/\r?\n/g, '')
+          .replace(/[\u0080-\uFFFF]/g, '');
       }
 
       const data = JSON.parse(dataText);
 
-      if(data.error){
+      if (data.error) {
         Alert.alert('Erro', 'Falha no envio do contrato.');
         console.error(data);
         setLoadingContract(false);
@@ -121,7 +149,6 @@ const ContractScreen = (props) => {
       updateAccount(updatedAccount);
       setVisible(false);
       setPodeAceitar(false);
-
     } catch (err) {
       Alert.alert('Erro', 'Erro ao aceitar o contrato.');
       console.error(err);
@@ -152,19 +179,21 @@ const ContractScreen = (props) => {
         <Modal
           visible={visible}
           animationType="fade"
-          transparent={true} // deixa fundo escurecido
+          transparent // deixa fundo escurecido
         >
-        <View style={styles.overlay}>
-          <View style={styles.modalContainer}>
-            <Text style={styles.title}>Contrato</Text>
+          <View style={styles.overlay}>
+            <View style={styles.modalContainer}>
+              <Text style={styles.title}>Contrato</Text>
 
-            <View style={styles.webviewContainer}>
-              <WebView
-                source={{ uri: `https://itajobi.usinaitajobi.com.br/contrato-texto.php?h=${selectedAccount.h}` }}
-                style={{ flex: 1 }}
-                javaScriptEnabled
-                onMessage={handleMessage}
-                injectedJavaScript={`
+              <View style={styles.webviewContainer}>
+                <WebView
+                  source={{
+                    uri: `https://itajobi.usinaitajobi.com.br/contrato-texto.php?h=${selectedAccount.h}`,
+                  }}
+                  style={{ flex: 1 }}
+                  javaScriptEnabled
+                  onMessage={handleMessage}
+                  injectedJavaScript={`
                   window.onscroll = function() {
                     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
                       window.ReactNativeWebView.postMessage('scrolledToBottom');
@@ -172,51 +201,51 @@ const ContractScreen = (props) => {
                   };
                   true;
                 `}
-              />
-            </View>
+                />
+              </View>
 
-            <View style={styles.buttonContainer}>
-              {loadingContract ? (
-                <ActivityIndicator size="small" color="#000" />
-              ) : (
-                <>
-                  <Text style={styles.infoText}>
-                    Ao continuar e contratar esse serviço, você concorda com os termos acima.
-                  </Text>
-
-                  <TouchableOpacity
-                    onPress={handleAceitar}
-                    disabled={!podeAceitar}
-                    style={[styles.button, { backgroundColor: podeAceitar ? 'green' : '#ccc' }]}
-                  >
-                    <MaterialIcons
-                      name="check-circle"
-                      size={20}
-                      color="#4CAF50"
-                    />
-                    <Text style={styles.buttonText}>
-                      Aceitar
+              <View style={styles.buttonContainer}>
+                {loadingContract ? (
+                  <ActivityIndicator size="small" color="#000" />
+                ) : (
+                  <>
+                    <Text style={styles.infoText}>
+                      Ao continuar e contratar esse serviço, você concorda com
+                      os termos acima.
                     </Text>
-                  </TouchableOpacity>
 
-                  <TouchableOpacity
-                    onPress={handleRecusar}
-                    style={[styles.button, { backgroundColor: 'red' }]}
-                  >
-                    <MaterialIcons
-                      name="cancel"
-                      size={20}
-                      color="#B71C1C"
-                    />
-                    <Text style={styles.buttonText}>Recusar</Text>
-                  </TouchableOpacity>
-                </>
-              )}
+                    <TouchableOpacity
+                      onPress={handleAceitar}
+                      disabled={!podeAceitar}
+                      style={[
+                        styles.button,
+                        { backgroundColor: podeAceitar ? 'green' : '#ccc' },
+                      ]}
+                    >
+                      <MaterialIcons
+                        name="check-circle"
+                        size={20}
+                        color="#4CAF50"
+                      />
+                      <Text style={styles.buttonText}>Aceitar</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      onPress={handleRecusar}
+                      style={[styles.button, { backgroundColor: 'red' }]}
+                    >
+                      <MaterialIcons name="cancel" size={20} color="#B71C1C" />
+                      <Text style={styles.buttonText}>Recusar</Text>
+                    </TouchableOpacity>
+                  </>
+                )}
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-      ) : (<></>)}
+        </Modal>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
@@ -254,7 +283,6 @@ const styles = StyleSheet.create({
     padding: 5,
     gap: 5,
     backgroundColor: '#eee',
-
   },
   button: {
     padding: 12,
@@ -276,6 +304,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
-
 
 export default ContractScreen;

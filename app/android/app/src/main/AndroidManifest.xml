@@ -16,7 +16,7 @@
   android:supportsRtl="true">
     <meta-data
       android:name="com.google.android.geo.API_KEY"
-      android:value="AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk" />
+      android:value="INSERIRNOVAKEY" />
     <activity
       android:name=".MainActivity"
       android:label="@string/app_name"

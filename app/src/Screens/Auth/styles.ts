@@ -2,11 +2,10 @@ import { StyleSheet, Platform } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     // backgroundColor: "#f5f6fa",
     padding: 32,
-    // display: "flex",
-    // justifyContent: "center",
+    justifyContent: 'center',
     // alignItems: "center",
   },
 
@@ -56,7 +55,7 @@ export default StyleSheet.create({
     height: 30,
     marginBottom: 10,
     fontSize: 23,
-    marginTop: '60%',
+    // marginTop: '60%',
     fontWeight: 'bold',
     fontStyle: 'normal',
     letterSpacing: 0,

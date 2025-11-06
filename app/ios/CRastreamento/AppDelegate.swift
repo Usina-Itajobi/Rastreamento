@@ -10,7 +10,7 @@ class AppDelegate: RCTAppDelegate {
   override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 
     // CONFIG RN MAPS
-    GMSServices.provideAPIKey("AIzaSyCK68SWDM0H4gc23n_8eK7gFbyCgtYKCYk")
+    GMSServices.provideAPIKey("INSERIRNOVAKEY")
     //
 
      self.moduleName = "CRastreamento"

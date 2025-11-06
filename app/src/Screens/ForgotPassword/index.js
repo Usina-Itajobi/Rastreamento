@@ -59,10 +59,8 @@ class ForgotPasswordScreen extends Component {
       const { data } = response;
 
       if (data) {
-
         if (data.error && data.error === 'S') {
-
-          if(data?.pagamento_atraso){
+          if (data?.pagamento_atraso) {
             this.props.navigation.navigate('PendingBills', {
               tipo: 'esqueciSenha',
               token: data.h,
@@ -88,7 +86,7 @@ class ForgotPasswordScreen extends Component {
             [
               {
                 text: 'OK',
-                onPress: () => this.props.navigation.navigate('Welcome'),
+                onPress: () => this.props.navigation.navigate('AuthStack'),
               },
             ],
           );
@@ -200,7 +198,7 @@ class ForgotPasswordScreen extends Component {
             style={{
               marginTop: 40,
             }}
-            onPress={() => this.props.navigation.navigate('Welcome')}
+            onPress={() => this.props.navigation.navigate('AuthStack')}
           />
 
           <Text style={styles.title}>Esqueci as Senha</Text>

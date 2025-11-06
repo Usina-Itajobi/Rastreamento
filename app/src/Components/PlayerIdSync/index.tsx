@@ -43,22 +43,18 @@ const PlayerIdSync: React.FC = () => {
 
       // Get list accounts data
       const listAccountsData = await AsyncStorage.getItem('@ctracker:accounts');
-      if(listAccountsData){
+      if (listAccountsData) {
         const listAccounts = JSON.parse(listAccountsData);
-        listAccounts.forEach(account => {
+        listAccounts.forEach((account) => {
           // Send player ID to backend
-          axios.post(
-            `${enterprise.baseUrl}/metronic/api/playerid.php`,
-            null,
-            {
-              params: {
-                email: account.email,
-                user_id: account.id,
-                tipo_usuario: account.tipo_usuario || null,
-                playerid: playerId,
-              },
+          axios.post(`${enterprise.baseUrl}/metronic/api/playerid.php`, null, {
+            params: {
+              email: account.email,
+              user_id: account.id,
+              tipo_usuario: account.tipo_usuario || null,
+              playerid: playerId,
             },
-          );
+          });
         });
       }
     } catch (error) {
