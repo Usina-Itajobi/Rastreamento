@@ -77,7 +77,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
         return;
       }
 
-      if (await AsyncStorage.getItem('@ctracker:accessToken')) {
+      if (await AsyncStorage.getItem('@grupoitajobi:accessToken')) {
         navigation.dispatch(StackActions.replace('PendingBills'));
       }
     };
@@ -89,7 +89,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
     const initializePlayerId = async () => {
       try {
         // const enterpriseData = await AsyncStorage.getItem(
-        //   '@ctracker:enterprise',
+        //   '@grupoitajobi:enterprise',
         // );
         // if (enterpriseData) {
         //   const parsedEnterprise = JSON.parse(enterpriseData);
@@ -148,7 +148,7 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
       }
 
       if (addAccountMode) {
-        const listAccounts = await AsyncStorage.getItem('@ctracker:accounts');
+        const listAccounts = await AsyncStorage.getItem('@grupoitajobi:accounts');
         const accounts = (
           listAccounts ? JSON.parse(listAccounts) : []
         ) as Account[];
@@ -163,11 +163,11 @@ const AuthScreen: React.FC<AuthScreenProps> = () => {
 
         addAccount({ ...data, accountName, username });
       } else {
-        await AsyncStorage.setItem('@ctracker:accessToken', data.h);
-        await AsyncStorage.setItem('@ctracker:user_name', username);
-        await AsyncStorage.setItem('@ctracker:keyMaps', data.keyMaps);
+        await AsyncStorage.setItem('@grupoitajobi:accessToken', data.h);
+        await AsyncStorage.setItem('@grupoitajobi:user_name', username);
+        await AsyncStorage.setItem('@grupoitajobi:keyMaps', data.keyMaps);
         await AsyncStorage.setItem(
-          '@ctracker:user',
+          '@grupoitajobi:user',
           JSON.stringify({
             id: data.id,
             name: data.nome,

@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.br.com.ctracker.app.n.onesignal</string>
+		<string>group.br.com.grupoitajobi.app.n.onesignal</string>
 	</array>
 </dict>
 </plist>

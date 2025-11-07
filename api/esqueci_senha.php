@@ -124,7 +124,7 @@ function enviaEmail($email, $mensagemTexto)
                     <p>Segue em anexo link de redefinição de senha</p>
                     <p>' . $mensagemTexto . '</p>
                     <br>
-                    <img style="height: 100%; display: block; margin: 0 auto;" src="http://ctracker.com.br/assets/logo/email_art.png" alt="logo">
+                    <img style="height: 100%; display: block; margin: 0 auto;" src="https://itajobi.usinaitajobi.com.br/assets/logo/email_art.png" alt="logo">
 
                     <b>End:</b> Laura Vieira da Silva Bombonati - 77 Distrito Empresarial 4 - CEP 14.175456 - Sertãozinho - SP <br>
                     <b>WhatsApp:</b> 16 99733-9299 <br>

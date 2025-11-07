@@ -136,18 +136,18 @@
               <td> ' . utf8_encode($rs[address]) . '</td>
               <td> ' . $rs[latitudeDecimalDegrees] . '</td>
               <td> ' . $rs[longitudeDecimalDegrees] . '</td>
-              <td><a href="http://maps.google.com/maps?q=' . $rs[latitudeDecimalDegrees] . ',' .  $rs[longitudeDecimalDegrees] . '" target="_blank" class="external" ><img src="http://ctracker.com.br/imagens/mapa_globo.png"  title="Veiculo Ligado"> </a></td>
+              <td><a href="http://maps.google.com/maps?q=' . $rs[latitudeDecimalDegrees] . ',' .  $rs[longitudeDecimalDegrees] . '" target="_blank" class="external" ><img src="https://itajobi.usinaitajobi.com.br/imagens/mapa_globo.png"  title="Veiculo Ligado"> </a></td>
               <td> ';
 			    	// if ($atraso || $data['status_sinal'] != 'R') echo "<img src='imagens/ignicao.png' alt='Desligado' title='Veículo desligado'> ";
 					if ($rs['ligado'] == 'S') 
-						echo  "<img src='http://ctracker.com.br/imagens/chave1.png' alt='Ligado' title='Veiculo Ligado'> ";
+						echo  "<img src='https://itajobi.usinaitajobi.com.br/imagens/chave1.png' alt='Ligado' title='Veiculo Ligado'> ";
 					else 
-						echo  "<img src='http://ctracker.com.br/imagens/ignicao.png' alt='Desligado' title='Veículo desligado'> ";
+						echo  "<img src='https://itajobi.usinaitajobi.com.br/imagens/ignicao.png' alt='Desligado' title='Veículo desligado'> ";
 			    	
 					if ($dataDespesas['bloqueado'] == 'N') 
-						echo " <img src='http://ctracker.com.br/imagens/unlock.png' alt='Veículo Desbloqueado' title='Veículo Desbloqueado'>"; 
+						echo " <img src='https://itajobi.usinaitajobi.com.br/imagens/unlock.png' alt='Veículo Desbloqueado' title='Veículo Desbloqueado'>"; 
 					else 
-						echo " <img src='http://ctracker.com.br/imagens/locked.png' alt='Bloqueado' title='Veículo Bloqueado'>";
+						echo " <img src='https://itajobi.usinaitajobi.com.br/imagens/locked.png' alt='Bloqueado' title='Veículo Bloqueado'>";
 			
 				echo  '</td>
             </tr>';

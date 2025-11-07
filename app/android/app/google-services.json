@@ -1,15 +1,15 @@
 {
   "project_info": {
     "project_number": "355831820090",
-    "project_id": "ctracker-ctr",
-    "storage_bucket": "ctracker-ctr.firebasestorage.app"
+    "project_id": "grupoitajobi-ctr",
+    "storage_bucket": "grupoitajobi-ctr.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:355831820090:android:63028f5137d82886faaa03",
         "android_client_info": {
-          "package_name": "br.com.ctracker.app"
+          "package_name": "br.com.grupoitajobi.app"
         }
       },
       "oauth_client": [],

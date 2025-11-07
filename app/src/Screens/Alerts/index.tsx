@@ -30,7 +30,7 @@ const AlertsScreen: React.FC = (props) => {
       setLoading(true);
       const accessToken = selectedAccount.h;
       const enterpriseStorage = await AsyncStorage.getItem(
-        '@ctracker:enterprise',
+        '@grupoitajobi:enterprise',
       );
 
       console.log(JSON.parse(enterpriseStorage!).baseUrl)

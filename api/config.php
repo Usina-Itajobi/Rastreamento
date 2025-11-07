@@ -1,17 +1,19 @@
 <?php
+include_once '../../usuario/config.php';
+include_once '../../includes/config.php';
 
 // database server:
-$DB_SERVER = "167.71.168.81";
+$DB_SERVER = $DB_SERVER;
 
 // username:
-$DB_USER = "bruno";
+$DB_USER = $DB_USER;
 
 // password:
-$DB_PASS = "6hjg2745";
+$DB_PASS = $DB_PASS;
 
 // database name:
-$DB_NAME = "tracker";
+$DB_NAME = $DB_NAME;
 
-// logout header location: 
+// logout header location:
 $logout_url = "account.php";
 ?>

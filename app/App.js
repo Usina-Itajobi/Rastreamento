@@ -27,7 +27,7 @@ function App() {
           baseUrl: 'https://itajobi.usinaitajobi.com.br',
         };
         await AsyncStorage.setItem(
-          '@ctracker:enterprise',
+          '@grupoitajobi:enterprise',
           JSON.stringify(enterpriseData),
         );
         console.log('Enterprise padrão definido:', enterpriseData);
@@ -88,7 +88,7 @@ function App() {
                   <>
                     <PlayerIdSync />
                     <AppStateUser />
-                    <Navigation uriPrefix="ctracker://" />
+                    <Navigation uriPrefix="grupoitajobi://" />
                   </>
                 )}
 

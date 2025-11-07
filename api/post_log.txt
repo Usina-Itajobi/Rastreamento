@@ -1,0 +1,24 @@
+[2025-01-28 10:36:18] POST Data: Array
+(
+    [metodoRequisicao] => login
+    [loginUsuario] => bruno
+    [senhaUsuario] => 1234
+    [bemId] => 12797
+)
+
+[2025-01-28 10:36:34] POST Data: Array
+(
+    [metodoRequisicao] => login
+    [loginUsuario] => bruno
+    [senhaUsuario] => 1234
+    [bemId] => 12797
+)
+
+[2025-01-28 14:39:19] POST Data: Array
+(
+)
+
+[2025-01-28 14:39:46] POST Data: Array
+(
+)
+

@@ -5,73 +5,6 @@
  *  @description: Validar o login e senha enviados pelo App ControlTracker (apenas para cliente)
  */
 
-
-/*
- * Buscar Icone do Tipo do Bem
- *
- * @param string|int $tipoBemId ID do Tipo do Bem
- * @param mysqli $con Conexão SQL
- *
- * @return int O id do icone do Tipo do Bem
- */
-function buscarIconBem($tipoBemId, $con)
-{
-    $img = '';
-
-    try {
-        if (!$tipoBemId || $tipoBemId === '') {
-            throw new Exception('ID do Tipo do Bem não informado');
-        }
-        if (!$con) {
-            throw new Exception('Conexão SQL não informada');
-        }
-
-        $query =
-            "SELECT `caminho_relativo`
-            FROM `tipo_bem_icone`
-            WHERE
-                `id` = '$tipoBemId';
-        ";
-	// return $query;
-        $execuxaoQuery = mysqli_query($con, $query);
-        if (!$execuxaoQuery) {
-            throw new Exception(mysqli_error($con));
-        }
-
-        if (mysqli_num_rows($execuxaoQuery) > 0) {
-            $dados = mysqli_fetch_assoc($execuxaoQuery);
-
-            if ($dados) {
-                $img = $dados['caminho_relativo'];
-            } else {
-                $img = 0;
-            }
-        }
-    } catch (Exception $exeption) {
-        $img = "https://ctracker.com.br/imagens/icones_map/icon_0_1.png";
-    }
-
-    return "https://ctracker.com.br".$img;
-}
-
-function converter_utf8($string)
-{
-    // Se a string não está em UTF-8 válido, converte
-    if (!mb_check_encoding($string, 'UTF-8')) {
-        return mb_convert_encoding($string, 'UTF-8', 'ISO-8859-1');
-    }
-
-    // Detecta "mojibake" (UTF-8 duplo)
-    $stringIso = mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');
-    if (mb_check_encoding($stringIso, 'UTF-8')) {
-        return $stringIso;
-    }
-
-    // Caso já esteja certo
-    return $string;
-}
-
-
 /**
  *	Função para protejer do SQL Inject
  */
@@ -180,11 +113,11 @@ $auth_user = strtolower($login);
 
 
 $sql =
-	"SELECT
-					    CAST(a.id AS DECIMAL(10,0)) as id_cliente
-				   FROM cliente a
+	"SELECT 
+					    CAST(a.id AS DECIMAL(10,0)) as id_cliente 
+				   FROM cliente a 
 				  WHERE (a.h = '" . $auth_user . "')
-
+				    
 				  LIMIT 1";
 
 
@@ -199,11 +132,11 @@ if ($num == 0) {
 
 	// verifica se tem algum grupo
 	$sql =
-		"SELECT
-					    CAST(a.id AS DECIMAL(10,0)) as id_grupo
-				   FROM grupo a
+		"SELECT 
+					    CAST(a.id AS DECIMAL(10,0)) as id_grupo 
+				   FROM grupo a 
 				  WHERE (a.h = '" . $auth_user . "')
-
+				    
 				  LIMIT 1";
 
 
@@ -212,8 +145,8 @@ if ($num == 0) {
 
 	if ($num == 0) {
 		$sql = "SELECT
-					    CAST(`cliente`.`id` AS DECIMAL(10,0)) AS id_cliente
-					FROM `cliente`
+					    CAST(`cliente`.`id` AS DECIMAL(10,0)) AS id_cliente 
+					FROM `cliente` 
 					INNER JOIN `usuarios` ON `cliente`.`id` = `usuarios`.`id_cliente`
 				  	WHERE
 						`usuarios`.`h` = '$auth_user'
@@ -238,14 +171,13 @@ if ($num != 0 && $grupo == false) {
 	$rs = mysqli_fetch_array($stm);
 	$id_cliente = $rs['id_cliente'];
 
-	$sql = "select
+	$sql = "select 
 		distinct
 		a.id
-		, a.name
+		, a.name 
 		, b.latitudeDecimalDegrees
 		, b.longitudeDecimalDegrees
 		, a.tipo
-		,`a`.`id_tipo`
 		, b.address
 		, DATE_FORMAT(b.date, '%d/%m/%Y %H:%i:%s') as dia
 		, DATE_FORMAT(b.data_comunica, '%d/%m/%Y %H:%i:%s') as diacomu
@@ -260,7 +192,6 @@ if ($num != 0 && $grupo == false) {
 		,a.auto_ico
 		, b.km_rodado
 		, a.ny
-		, a.templateTelemetria
 		, a.minivps
 		, b.rpm
 		, b.bat_interna
@@ -270,37 +201,36 @@ if ($num != 0 && $grupo == false) {
 
 		  , b.combustivel
 		, ( select p.nome_pessoa from pessoas p where p.imei = a.imei limit 1) as motorista
-		from
+		from 
 				bem a
 				, loc_atual b
 				, cliente c
 
-		where
-				a.activated = 'S'
-
-				and
+		where 
+				a.activated = 'S' 
+				
+				and 
 				(
-					a.cliente = " . trim($id_cliente) . "
+					a.cliente = " . trim($id_cliente) . " 
 					or
 					a.cliente in (
-						select c.id from cliente c where c.id_admin = '" . trim($id_cliente) . "'
+						select c.id from cliente c where c.id_admin = '" . trim($id_cliente) . "' 
 					)
 				)
-
+				
 		";
 } else {
 
 	$rs = mysqli_fetch_array($stm);
 	$id_grupo = $rs['id_grupo'];
 
-	$sql = "select
+	$sql = "select      
 						distinct
-						a.id
-						, a.name
+						a.id 
+						, a.name 
 						, b.latitudeDecimalDegrees
 						, b.longitudeDecimalDegrees
 						, a.tipo
-						,`a`.`id_tipo`
 						, b.address
 						, DATE_FORMAT(b.date, '%d/%m/%Y %H:%i:%s') as dia
 						, DATE_FORMAT(b.data_comunica, '%d/%m/%Y %H:%i:%s') as diacomu
@@ -313,7 +243,6 @@ if ($num != 0 && $grupo == false) {
 						, a.alert_ign
 						, b.km_rodado
 						, a.ny
-						, a.templateTelemetria
 						, a.minivps
 						, b.rpm
 						, b.bat_interna
@@ -326,21 +255,21 @@ if ($num != 0 && $grupo == false) {
 						, a.limite_velocidade
 
 						, ( select p.nome_pessoa from pessoas p where p.imei = a.imei ) as motorista
-			from
+			from 
 						bem a
 						, loc_atual b
 						, cliente c
-			where
-						a.activated = 'S'
+			where 
+						a.activated = 'S' 
 						and a.cliente = c.id
-
+						
 						and a.id in (
-
+							
 							select gb.bem from grupo_bem gb where gb.grupo = '" . $id_grupo . "'
-
+							
 						)
-
-
+						
+						
 	";
 }
 
@@ -362,8 +291,8 @@ $sql .= "
 
 
 
-$sql .= "
-			order by
+$sql .= "					
+			order by 
 						a.name  ";
 
 $stm  = mysqli_query($con,  $sql);
@@ -395,76 +324,58 @@ while ($rs = mysqli_fetch_array($stm)) {
 	}
 
 
-	$retorno[$aux]['idCliente'] = converter_utf8($rs['idcliente']);
-	$retorno[$aux]['nomeCliente'] = converter_utf8($rs['nomecliente']);
+	$retorno[$aux]['idCliente'] = utf8_encode($rs['idcliente']);
+	$retorno[$aux]['nomeCliente'] = utf8_encode($rs['nomecliente']);
 
-	$retorno[$aux]['id_bem'] = converter_utf8($rs['id']);
-	$retorno[$aux]['name'] = ($rs['name']);
+	$retorno[$aux]['id_bem'] = utf8_encode($rs['id']);
+	$retorno[$aux]['name'] = utf8_encode($rs['name']);
 	if ($id_cliente == 2800) {
-		$retorno[$aux]['name'] = converter_utf8($rs['name']) . " -
-	Data Comunicação: " . converter_utf8($rs['diacomu']);
+		$retorno[$aux]['name'] = utf8_encode($rs['name']) . " -
+	Data Comunicação: " . utf8_encode($rs['diacomu']);
 	}
-	$retorno[$aux]['tipo'] = converter_utf8($rs['tipo']);
-	$retorno[$aux]['lat'] = converter_utf8($rs['latitudeDecimalDegrees'] * 1);
-	$retorno[$aux]['lng'] = converter_utf8($rs['longitudeDecimalDegrees'] * 1);
+	$retorno[$aux]['tipo'] = ':' . utf8_encode($rs['tipo']);
+	$retorno[$aux]['lat'] = utf8_encode($rs['latitudeDecimalDegrees'] * 1);
+	$retorno[$aux]['lng'] = utf8_encode($rs['longitudeDecimalDegrees'] * 1);
 
-	$retorno[$aux]['address'] = ($rs['address']);
+	$retorno[$aux]['address'] = utf8_encode($rs['address']);
 	if ($auth_user == '0b85502f856ed8c5743de71473c78098') { // SE FOR USUARIO CAROLO REMOVE FOTO E ENDEREÇO PRO APP FICAR MENOS AS TABLE
-		$retorno[$aux]['address'] = "Velocidade: " . converter_utf8($rs['speed']) . " Km/H  |  Limite:" . $rs['limite_velocidade'];
+		$retorno[$aux]['address'] = "Velocidade: " . utf8_encode($rs['speed']) . " Km/H  |  Limite:" . $rs['limite_velocidade'];
 	}
-	$retorno[$aux]['dia'] = converter_utf8($rs['dia']);
-	$retorno[$aux]['date_comuni'] = converter_utf8($rs['diacomu']);
+	$retorno[$aux]['dia'] = utf8_encode($rs['dia']);
+	$retorno[$aux]['date_comuni'] = utf8_encode($rs['diacomu']);
 	$retorno[$aux]['back_color'] = "0000F";
+	$retorno[$aux]['ign_color'] = "FC0303";
 
 	//diacomu
 
-	$retorno[$aux]['ancora'] = converter_utf8($rs['ancora']);
-	$retorno[$aux]['alert_ign'] = converter_utf8($rs['alert_ign']);
-	$retorno[$aux]['speed'] = converter_utf8($rs['speed']);
-	$retorno[$aux]['ligado'] = converter_utf8($rs['ligado']);
-	$retorno[$aux]['imei'] = converter_utf8($rs['imei']);
-
-	if ($retorno[$aux]['ligado'] == "S") {
-		$retorno[$aux]['ign_color'] = "08CD1C"; //0352FC
-	} else {
-		$retorno[$aux]['ign_color'] = "FC0303"; //0352FC
-	}
+	$retorno[$aux]['ancora'] = utf8_encode($rs['ancora']);
+	$retorno[$aux]['alert_ign'] = utf8_encode($rs['alert_ign']);
+	$retorno[$aux]['speed'] = utf8_encode($rs['speed']);
+	$retorno[$aux]['ligado'] = utf8_encode($rs['ligado']);
+	$retorno[$aux]['imei'] = utf8_encode($rs['imei']);
 
 	if (!$rs['rpm']) {
 		$rs['rpm'] = 0;
 	}
 
-	$templateTelemetria = [];
-	if($rs['templateTelemetria']){
-		$templateTelemetriaDados = json_decode($rs['templateTelemetria'], true);
-		if($templateTelemetriaDados && is_array($templateTelemetriaDados)){
-			foreach ($templateTelemetriaDados as $valor) {
-				$templateTelemetria[$valor] = true;
-			}
-		} else {
-			$templateTelemetria = [];
-		}
-	}
-	$retorno[$aux]['template_telemetria'] =  $templateTelemetria;
-
-	$retorno[$aux]['voltagem_bateria'] =  converter_utf8($rs['voltagem_bateria']);
-	$retorno[$aux]['bateria_interna'] =  converter_utf8($rs['bat_interna']);
+	$retorno[$aux]['voltagem_bateria'] =  utf8_encode($rs['voltagem_bateria']);
+	$retorno[$aux]['bateria_interna'] =  utf8_encode($rs['bat_interna']);
 	// $retorno[ $aux ]['bateria_interna'] =  utf8_encode (  $rs['bat_interna'] );
 	if ($rs['S1'] == 1) {
 		$retorno[$aux]['bloqueado'] = 'S';
 	} else {
 		$retorno[$aux]['bloqueado'] = 'N';
 	}
-	$retorno[$aux]['km_rodado'] = converter_utf8($rs['km_rodado']);
-	$retorno[$aux]['rpm'] = converter_utf8($rs['rpm']);
-	$retorno[$aux]['tipbem_id'] = converter_utf8($rs['tipbem_id']);
-	$retorno[$aux]['combustivel'] = converter_utf8($rs['combustivel']);
+	$retorno[$aux]['km_rodado'] = utf8_encode($rs['km_rodado']);
+	$retorno[$aux]['rpm'] = utf8_encode($rs['rpm']);
+	$retorno[$aux]['tipbem_id'] = utf8_encode($rs['tipbem_id']);
+	$retorno[$aux]['combustivel'] = utf8_encode($rs['combustivel']);
 
 	$tipbem_id = $rs['tipbem_id'];
 	$stm_icone = mysqli_query($con,  "select tipbem_img,tipbem_tipo from tipo_bem where tipbem_id = '" . $tipbem_id . "'");
 	$rs_icone = mysqli_fetch_assoc($stm_icone);
 	if ($rs['img_car']) {
-		$retorno[$aux]['imagem_veiculo'] = "https://itajobi.usinaitajobi.com.br/imagens/veiculos/" . converter_utf8($rs['img_car']);
+		$retorno[$aux]['imagem_veiculo'] = "https://itajobi.usinaitajobi.com.br/imagens/veiculos/" . utf8_encode($rs['img_car']);
 	} else {
 		$retorno[$aux]['imagem_veiculo'] = NULL;
 	}
@@ -472,12 +383,12 @@ while ($rs = mysqli_fetch_array($stm)) {
 		$retorno[$aux]['imagem_veiculo'] = NULL;
 	}
 
-	$auto_icone = converter_utf8($rs['auto_ico']);
+	$auto_icone = utf8_encode($rs['auto_ico']);
 
 
 
-	$icone_img = converter_utf8($rs_icone['tipbem_img']);
-	$icone_tips = converter_utf8($rs_icone['tipbem_tipo']);
+	$icone_img = utf8_encode($rs_icone['tipbem_img']);
+	$icone_tips = utf8_encode($rs_icone['tipbem_tipo']);
 	if ($auto_icone == "S") {
 
 		if (like('%hatch%', $icone_tips)) {
@@ -556,13 +467,10 @@ while ($rs = mysqli_fetch_array($stm)) {
 			//echo "desligado";
 		}
 	} else {
-		$retorno[$aux]['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/" . converter_utf8($rs_icone['tipbem_img']);
+		$retorno[$aux]['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/" . utf8_encode($rs_icone['tipbem_img']);
 		// echo "padrao";
 	}
 
-	$idIconBem = buscarIconBem($rs['id_tipo'], $con);
-	$retorno[$aux]['imagem_icone'] = $idIconBem;
-	$retorno[$aux]['imagem_veiculo'] = NULL;
 	$retorno[$aux]['server'] = 'NY';
 
 
@@ -593,7 +501,7 @@ $sql = "INSERT INTO log_dados_app
 									, lgddapp_imei
 									, lgddapp_json
 									, lgddapp_header
-								)
+								) 
 								values
 								(
 									now()
@@ -601,7 +509,7 @@ $sql = "INSERT INTO log_dados_app
 									, '" . $id_bem . "'
 									, '" . json_encode($retorno) . "'
 									, '" . $_SERVER['HTTP_USER_AGENT'] . "'
-								)
+								) 
 								";
 
 mysqli_query($con, $sql);

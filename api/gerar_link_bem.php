@@ -60,7 +60,7 @@ if (true) {
 
         $sql =  "UPDATE `bem` SET `hash_link`= '$md5' WHERE id = $id";
         if (mysqli_query($con, $sql)) {
-            $link = "https://www.ctracker.com.br/newtemplate/pages/LinkVeiculo/?hash=$md5&mudatemp=1&tempo=60";
+            $link = "https://itajobi.usinaitajobi.com.br/newtemplate/pages/LinkVeiculo/?hash=$md5&mudatemp=1&tempo=60";
 
             //            $retorno = "<p>$link<br><font style='color:red'>Link Válido por 24 Horas</font></p>";
 

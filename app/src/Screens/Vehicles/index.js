@@ -116,7 +116,7 @@ const VehiclesPage = (props) => {
       try {
         const accessUserName = selectedAccount.username;
         const enterpriseStorage = await AsyncStorage.getItem(
-          '@ctracker:enterprise',
+          '@grupoitajobi:enterprise',
         );
         const { baseUrl } = JSON.parse(enterpriseStorage);
 

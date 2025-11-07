@@ -110,7 +110,7 @@ const ModalCreateLinkVehicle = ({ visible, handleClose, id_bem }) => {
         return;
       }
 
-      const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+      const enterprise = await AsyncStorage.getItem('@grupoitajobi:enterprise');
 
       const { baseUrl } = JSON.parse(enterprise);
 
@@ -138,7 +138,7 @@ const ModalCreateLinkVehicle = ({ visible, handleClose, id_bem }) => {
         return;
       }
 
-      await Share.open({ title: 'Link Veículo CTracker', message: link });
+      await Share.open({ title: 'Link Veículo grupoitajobi', message: link });
       handleClose();
     } catch (error) {
       if (error.message === 'User did not share') {

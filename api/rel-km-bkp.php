@@ -96,7 +96,7 @@ $id_cliente = $rs['id_cliente'];
     overflow: hidden;
     border: solid 2px #ccc; display:none;"></div>
 <div class="table-responsive">
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtw4_xnEOXxMhCBH8yJhleTeBTJB2_-RY"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCb29gWS4xewEnSkhn58AkxUPdV8Tv4aM"></script>
 	<script>
 		var posicoes = [];
 	</script>

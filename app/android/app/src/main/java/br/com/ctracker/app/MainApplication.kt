@@ -1,4 +1,4 @@
-package br.com.ctracker.app
+package br.com.grupoitajobi.app
 
 import android.app.Application
 import com.facebook.react.PackageList

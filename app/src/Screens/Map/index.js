@@ -63,7 +63,7 @@ function Map(props) {
     async (firstAccess = false) => {
       try {
         const accessUserName = selectedAccount.username;
-        const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+        const enterprise = await AsyncStorage.getItem('@grupoitajobi:enterprise');
         console.log('enterprise:', enterprise);
 
         const baseUrl = 'https://itajobi.usinaitajobi.com.br';
@@ -190,7 +190,7 @@ function Map(props) {
 
     try {
       const accessToken = selectedAccount.h;
-      const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+      const enterprise = await AsyncStorage.getItem('@grupoitajobi:enterprise');
       console.log('enterprise:', enterprise);
 
       const { baseUrl } = JSON.parse(enterprise);

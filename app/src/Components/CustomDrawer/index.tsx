@@ -29,7 +29,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
   });
 
   const getData = async () => {
-    const enterpriseGet = await AsyncStorage.getItem('@ctracker:enterprise');
+    const enterpriseGet = await AsyncStorage.getItem('@grupoitajobi:enterprise');
     const data = JSON.parse(enterpriseGet);
     setContacts({
       id_cliente: data.clientId,

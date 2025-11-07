@@ -55,7 +55,7 @@ const BillsScreen = (props) => {
   const getBills = useCallback(async () => {
     setLoading(true);
     try {
-      const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+      const enterprise = await AsyncStorage.getItem('@grupoitajobi:enterprise');
 
       const { baseUrl } = JSON.parse(enterprise);
 

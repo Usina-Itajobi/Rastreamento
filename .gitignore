@@ -32,7 +32,7 @@ local.properties
 *.hprof
 .cxx/
 *.keystore
-!ctracker-key.keystore
+!grupoitajobi-key.keystore
 !debug.keystore
 .kotlin
 # node.js

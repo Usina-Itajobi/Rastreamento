@@ -12,13 +12,13 @@ const PlayerIdSync: React.FC = () => {
 
     try {
       // Get enterprise data
-      enterpriseData = await AsyncStorage.getItem('@ctracker:enterprise');
+      enterpriseData = await AsyncStorage.getItem('@grupoitajobi:enterprise');
       if (!enterpriseData) return;
 
       const enterprise = JSON.parse(enterpriseData);
 
       // Get user data
-      userData = await AsyncStorage.getItem('@ctracker:user');
+      userData = await AsyncStorage.getItem('@grupoitajobi:user');
       if (!userData) return;
 
       const user = JSON.parse(userData);
@@ -42,7 +42,7 @@ const PlayerIdSync: React.FC = () => {
       );
 
       // Get list accounts data
-      const listAccountsData = await AsyncStorage.getItem('@ctracker:accounts');
+      const listAccountsData = await AsyncStorage.getItem('@grupoitajobi:accounts');
       if (listAccountsData) {
         const listAccounts = JSON.parse(listAccountsData);
         listAccounts.forEach((account) => {

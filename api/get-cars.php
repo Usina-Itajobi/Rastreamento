@@ -226,18 +226,18 @@ while ($rs = mysqli_fetch_array($stm)) {
 	if ($auto_icone == "S") {
 		if ($retorno[$aux]['ligado'] == "S") {
 			if ($retorno[$aux]['speed'] > 0) {
-				$retorno[$aux]['imagem_icone'] = "https://www.ctracker.com.br/imagens/auto_icone/Movimento/" . utf8_encode($rs_icone['tipbem_img']);
+				$retorno[$aux]['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/auto_icone/Movimento/" . utf8_encode($rs_icone['tipbem_img']);
 				//echo "movimento";
 			} else {
-				$retorno[$aux]['imagem_icone'] = "https://www.ctracker.com.br/imagens/auto_icone/Ligados/" . utf8_encode($rs_icone['tipbem_img']);
+				$retorno[$aux]['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/auto_icone/Ligados/" . utf8_encode($rs_icone['tipbem_img']);
 				//echo "Ligado";
 			}
 		} else {
-			$retorno[$aux]['imagem_icone'] = "https://www.ctracker.com.br/imagens/auto_icone/Desligados/" . utf8_encode($rs_icone['tipbem_img']);
+			$retorno[$aux]['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/auto_icone/Desligados/" . utf8_encode($rs_icone['tipbem_img']);
 			//echo "desligado";
 		}
 	} else {
-		$retorno[$aux]['imagem_icone'] = "https://www.ctracker.com.br/imagens/" . utf8_encode($rs_icone['tipbem_img']);
+		$retorno[$aux]['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/" . utf8_encode($rs_icone['tipbem_img']);
 		// echo "padrao";
 	}
 

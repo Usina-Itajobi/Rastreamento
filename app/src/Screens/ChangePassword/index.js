@@ -127,8 +127,8 @@ const ChangePasswordScreen = (props) => {
     try {
       Keyboard.dismiss();
 
-      const accessUserName = await AsyncStorage.getItem('@ctracker:user_name');
-      const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+      const accessUserName = await AsyncStorage.getItem('@grupoitajobi:user_name');
+      const enterprise = await AsyncStorage.getItem('@grupoitajobi:enterprise');
       const { baseUrl } = JSON.parse(enterprise);
 
       const form = new FormData();

@@ -425,18 +425,18 @@ try {
             }
             if ($dados['ligado'] == "S") {
                 if ($dados['velocidade'] > 0) {
-                    $dados['imagem_icone'] = "https://www.ctracker.com.br/imagens/auto_icone/Movimento/" . $icone_img;
+                    $dados['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/auto_icone/Movimento/" . $icone_img;
                     //echo "movimento";
                 } else {
-                    $dados['imagem_icone'] = "https://www.ctracker.com.br/imagens/auto_icone/Ligados/" . $icone_img;
+                    $dados['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/auto_icone/Ligados/" . $icone_img;
                     //echo "Ligado";
                 }
             } else {
-                $dados['imagem_icone'] = "https://www.ctracker.com.br/imagens/auto_icone/Desligados/" . $icone_img;
+                $dados['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/auto_icone/Desligados/" . $icone_img;
                 //echo "desligado";
             }
         } else {
-            $dados['imagem_icone'] = "https://www.ctracker.com.br/imagens/" . converter_utf8($rs_icone['tipbem_img']);
+            $dados['imagem_icone'] = "https://itajobi.usinaitajobi.com.br/imagens/" . converter_utf8($rs_icone['tipbem_img']);
             // echo "padrao";
         }*/
 
@@ -444,7 +444,7 @@ try {
 	    $dados['imagem_icone'] = $idIconBem;
 
         if ($row['img_car']) {
-            $dados['imagem_veiculo'] = "https://www.ctracker.com.br/imagens/veiculos/" . converter_utf8($row['img_car']);
+            $dados['imagem_veiculo'] = "https://itajobi.usinaitajobi.com.br/imagens/veiculos/" . converter_utf8($row['img_car']);
         } else {
             $dados['imagem_veiculo'] = NULL;
         }

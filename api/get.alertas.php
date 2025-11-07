@@ -44,7 +44,7 @@ mysqli_select_db($con, $DB_NAME);
 $auth_user = strtolower($h);
 
 
-$sql =
+ $sql =
 	"SELECT 
 					    CAST(a.id AS DECIMAL(10,0)) as id_cliente 
 				   FROM cliente a 
@@ -54,7 +54,7 @@ $sql =
 
 
 
-$stm = mysqli_query($con, $sql) or die('Unable to execute query.');
+$stm = mysqli_query($con, $sql) ;
 $rs = mysqli_fetch_array($stm);
 $id_cliente = $rs['id_cliente'];
 
@@ -72,7 +72,7 @@ if ($rs1['admin'] == "S") {
 	$sql = "SELECT b.name, m.message, m.imei, date_format(m.date, '%d/%c/%y %H:%i:%s') date, count(*) as qtde
 			  FROM bem b inner join message m on (b.imei = m.imei)
 			  WHERE b.cliente = $id_cliente and m.viewed = 'N'
-			  GROUP BY 1, 2, 3, 4 ORDER BY m.date DESC";
+			  GROUP BY 1, 2, 3, 4 ORDER BY m.date DESC LIMIT 50";
 }
 
 

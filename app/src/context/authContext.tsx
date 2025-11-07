@@ -68,12 +68,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const addSelectedAccount = (account: Account) => {
     setSelectedAccount(account);
-    AsyncStorage.setItem('@ctracker:selectedAccount', JSON.stringify(account));
+    AsyncStorage.setItem('@grupoitajobi:selectedAccount', JSON.stringify(account));
   };
 
   const addDefaultAccount = (account: Account) => {
     setDefaultAccount(account);
-    AsyncStorage.setItem('@ctracker:defaultAccount', JSON.stringify(account));
+    AsyncStorage.setItem('@grupoitajobi:defaultAccount', JSON.stringify(account));
     addSelectedAccount(account);
   };
 
@@ -85,7 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       { ...account, parentAccountEmail: defaultAccountEmail },
     ]);
     AsyncStorage.setItem(
-      '@ctracker:accounts',
+      '@grupoitajobi:accounts',
       JSON.stringify([
         ...accounts,
         { ...account, parentAccountEmail: defaultAccountEmail },
@@ -98,7 +98,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const removeAccount = (account: Account) => {
     const newAccounts = accounts.filter((acc) => acc.id !== account.id);
     setAccounts(newAccounts);
-    AsyncStorage.setItem('@ctracker:accounts', JSON.stringify(newAccounts));
+    AsyncStorage.setItem('@grupoitajobi:accounts', JSON.stringify(newAccounts));
 
     if (selectedAccount?.id === account.id) {
       addSelectedAccount(defaultAccount);
@@ -108,7 +108,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateAccount = (account: Account) => {
     setSelectedAccount(account);
     AsyncStorage.setItem(
-      '@ctracker:selectedAccount',
+      '@grupoitajobi:selectedAccount',
       JSON.stringify(account),
     );
 
@@ -116,7 +116,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     if (defaultAccount?.id === account?.id) {
       setDefaultAccount(account);
       AsyncStorage.setItem(
-        '@ctracker:defaultAccount',
+        '@grupoitajobi:defaultAccount',
         JSON.stringify(account),
       );
     }
@@ -136,20 +136,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const getAccounts = async () => {
     setLoading(true);
     const defaultAccountStorage = await AsyncStorage.getItem(
-      '@ctracker:defaultAccount',
+      '@grupoitajobi:defaultAccount',
     );
-    const accountsStorage = await AsyncStorage.getItem('@ctracker:accounts');
+    const accountsStorage = await AsyncStorage.getItem('@grupoitajobi:accounts');
     const selectedAccountStorage = await AsyncStorage.getItem(
-      '@ctracker:selectedAccount',
+      '@grupoitajobi:selectedAccount',
     );
 
     if (defaultAccountStorage) {
       setDefaultAccount(JSON.parse(defaultAccountStorage));
     } else {
-      const h = await AsyncStorage.getItem('@ctracker:accessToken');
-      const username = await AsyncStorage.getItem('@ctracker:user_name');
-      const keyMaps = await AsyncStorage.getItem('@ctracker:keyMaps');
-      const user = await AsyncStorage.getItem('@ctracker:user');
+      const h = await AsyncStorage.getItem('@grupoitajobi:accessToken');
+      const username = await AsyncStorage.getItem('@grupoitajobi:user_name');
+      const keyMaps = await AsyncStorage.getItem('@grupoitajobi:keyMaps');
+      const user = await AsyncStorage.getItem('@grupoitajobi:user');
 
       if (h && username && keyMaps && user) {
         const userObj = JSON.parse(user);
@@ -163,7 +163,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
             .nomeInitials,
         };
         AsyncStorage.setItem(
-          '@ctracker:defaultAccount',
+          '@grupoitajobi:defaultAccount',
           JSON.stringify(newDefaultAccount),
         );
         setDefaultAccount(newDefaultAccount);
@@ -199,7 +199,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateSelectedAccountData = async () => {
     if (!selectedAccount?.id) return;
 
-    const enterprise = await AsyncStorage.getItem('@ctracker:enterprise');
+    const enterprise = await AsyncStorage.getItem('@grupoitajobi:enterprise');
     if(!enterprise) return;
 
     const { baseUrl } = JSON.parse(enterprise);

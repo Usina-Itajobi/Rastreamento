@@ -49,11 +49,11 @@ mysqli_select_db($con, $DB_NAME);
 $auth_user = strtolower($login);
 
 $sql =
-	"SELECT 
-					    CAST(a.id AS DECIMAL(10,0)) as id_cliente 
-				   FROM cliente a 
+	"SELECT
+					    CAST(a.id AS DECIMAL(10,0)) as id_cliente
+				   FROM cliente a
 				  WHERE (a.email = '" . $auth_user . "' OR a.apelido = '" . $auth_user . "')
-				    
+
 				  LIMIT 1";
 
 
@@ -96,7 +96,7 @@ $id_cliente = $rs['id_cliente'];
     overflow: hidden;
     border: solid 2px #ccc; display:none;"></div>
 <div class="table-responsive">
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtw4_xnEOXxMhCBH8yJhleTeBTJB2_-RY"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBCb29gWS4xewEnSkhn58AkxUPdV8Tv4aM"></script>
 	<script>
 		var posicoes = [];
 	</script>
@@ -158,7 +158,7 @@ $id_cliente = $rs['id_cliente'];
 
 				$sqls = "SELECT DISTINCT a.id , a.name , b.latitudeDecimalDegrees , b.longitudeDecimalDegrees , a.tipo , b.address ,
 				  DATE_FORMAT(b.date, '%d/%m/%Y %H:%i:%s') as dia , b.speed , b.ligado , a.imei , b.voltagem_bateria , a.bloqueado , a.ancora ,
-				   b.km_rodado from bem a , loc_atual b where a.activated = 'S' and a.id in (select b.bem from grupo c, grupo_bem b 
+				   b.km_rodado from bem a , loc_atual b where a.activated = 'S' and a.id in (select b.bem from grupo c, grupo_bem b
 				   where b.grupo = c.id and c.nome = '$login') LIMIT " . $limitesql['limite'] . "";
 
 				//  echo $sqls; die;
@@ -206,9 +206,9 @@ $id_cliente = $rs['id_cliente'];
 		$km_total_bem  = array();
 		$imeis = array();
 		foreach ($idbem as $key => $value) {
-			
+
 		$sql = "
-		select 
+		select
 						( select name from bem b where b.imei = a.imei  ) as placa
 						, ( select modelo_rastreador from bem b where b.imei = a.imei  ) as modelo_rastreador
 						, ( select c.nome from bem b, cliente c where b.cliente = c.id and b.imei = a.imei  ) as cliente
@@ -232,20 +232,20 @@ $id_cliente = $rs['id_cliente'];
 		from gprmc a
 		where id_bem in ( $value )
 		and date between '$dataInicial $horaInicial' and '$dataFinal $horaFinal'
-		
+
 		order by date desc
-	
+
 		";
 		// echo $sql;
 
-	
+
 
 		$stm = mysqli_query($con, $sql);
 		$aux = 0;
 		$dataInicio = 0;
 		$dataFim = 0;
 		$inicioViagem = false;
-	
+
 		while ($rs = mysqli_fetch_array($stm)) {
 			$aux++;
 
@@ -330,7 +330,7 @@ $id_cliente = $rs['id_cliente'];
 
 			$u_lat =  $latitudeDecimalDegrees;
 			$u_lng =  $longitudeDecimalDegrees;
-			
+
 		}
 		$imeis = array_unique($imeis);
 		$dia_ = array_unique($dia_);

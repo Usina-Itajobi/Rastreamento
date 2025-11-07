@@ -3,7 +3,7 @@
 	"tasks": [
         {
             "type": "shell",
-            "command": "adb shell pm clear br.com.ctracker.app &&  adb shell monkey -p br.com.ctracker.app -c android.intent.category.LAUNCHER 1",
+            "command": "adb shell pm clear br.com.@grupoitajobi.app &&  adb shell monkey -p br.com.@grupoitajobi.app -c android.intent.category.LAUNCHER 1",
             "group": "build",
             "label": "🔃 reset",
            "presentation": {
@@ -18,7 +18,7 @@
         },
         {
             "type": "shell",
-            "command": "adb shell am force-stop br.com.ctracker.app && adb shell monkey -p br.com.ctracker.app -c android.intent.category.LAUNCHER 1",
+            "command": "adb shell am force-stop br.com.@grupoitajobi.app && adb shell monkey -p br.com.@grupoitajobi.app -c android.intent.category.LAUNCHER 1",
             "group": "build",
             "label": "🚪 open",
            "presentation": {
@@ -33,7 +33,7 @@
         },
         {
             "type": "shell",
-            "command": "adb shell am force-stop br.com.ctracker.app",
+            "command": "adb shell am force-stop br.com.@grupoitajobi.app",
             "group": "build",
             "label": "❌ close",
            "presentation": {
@@ -48,7 +48,7 @@
         },
         {
             "type": "shell",
-            "command": "cd app && cd ./android && ./gradlew assembleRelease && pkill java && mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/ctracker-ctr-release-$(date +%Y-%m-%d-%H-%M-%S).apk",
+            "command": "cd app && cd ./android && ./gradlew assembleRelease && pkill java && mv ./app/build/outputs/apk/release/app-release.apk ./app/build/outputs/apk/release/@grupoitajobi-ctr-release-$(date +%Y-%m-%d-%H-%M-%S).apk",
             "group": "build",
             "label": "📱 apk"
         },

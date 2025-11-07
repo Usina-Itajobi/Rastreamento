@@ -10,14 +10,14 @@
     ],
   "icon": "./src/assets/images/logo.jpg",
     "ios": {
-      "bundleIdentifier": "br.com.ctracker.app",
+      "bundleIdentifier": "br.com.grupoitajobi.app",
       "buildNumber": "1.0.0",
       "config": {
         "googleMapsApiKey": "INSERIRNOVAKEY"
       }
     },
     "android": {
-      "package": "br.com.ctracker.app",
+      "package": "br.com.grupoitajobi.app",
       "versionCode": 1,
       "config": {
         "googleMaps": {
@@ -37,7 +37,7 @@
         {
           "url": "https://sentry.io/",
           "project": "c-rastreamento",
-          "organization": "ctracker"
+          "organization": "grupoitajobi"
         }
       ]
     ]

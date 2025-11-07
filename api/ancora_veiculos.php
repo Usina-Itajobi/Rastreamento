@@ -61,11 +61,21 @@
 	
 	$idbem = $_POST['v_id'];
 	$qual = $_POST['v_qual'];
-	
-	$sql_up = "update bem set ancora = '". $qual ."' where id = '". $idbem ."'";
+	// $ancora_coords = "[]";
+	// $sql_up = "update bem set ancora = '". $qual ."' , `ancora_coords`='$ancora_coords' where id = '". $idbem ."'";
+	$sql_up = "update bem set ancora = '". $qual ."'  where id = '". $idbem ."'";
 	mysqli_query($con,$sql_up);
 
 	$retorno = array( 'msg' => 'Sinal de ancora enviado com sucesso!');
 	echo json_encode( $retorno );
 	die;
 	
+	function getLastData($idbem){
+		$cnx = mysqli_connect("localhost", "traccar", "6hjg2745")
+			or die("Could not connect: " . mysqli_error($cnx));
+		mysqli_select_db($cnx, 'tracker');
+		$query = "SELECT latitudeDecimalDegrees,latitudeDecimalDegrees FROM `tracker`.`loc_atual` WHERE id = '$idbem' ORDER BY id DESC LIMIT 1";
+		$result = mysqli_query($cnx, $query);
+		$last_data = mysqli_fetch_array($result);
+		return $last_data;
+	}

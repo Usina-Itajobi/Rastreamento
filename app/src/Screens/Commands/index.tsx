@@ -40,7 +40,7 @@ const CommandsPage = () => {
     try {
       const accessToken = selectedAccount?.h;
       const enterpriseStorage = await AsyncStorage.getItem(
-        '@ctracker:enterprise',
+        '@grupoitajobi:enterprise',
       );
       const enterprise = JSON.parse(enterpriseStorage!);
 
@@ -72,7 +72,7 @@ const CommandsPage = () => {
     try {
       const accessToken = selectedAccount?.h;
       const enterpriseStorage = await AsyncStorage.getItem(
-        '@ctracker:enterprise',
+        '@grupoitajobi:enterprise',
       );
       const enterprise = JSON.parse(enterpriseStorage!);
 

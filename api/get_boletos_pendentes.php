@@ -140,60 +140,6 @@ if ($result) {
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
             if ($row['cnrt_vencimento']) {
-                /** ID do Boleto */
-                //$BOL_ID = $row['bol_code'];
-
-                /** cURL para buscar o Boleto */
-                /*$curlBol = curl_init();
-                curl_setopt_array(
-                    $curlBol,
-                    array(
-                        CURLOPT_URL => 'https://www.asaas.com/api/v3/payments/' . $BOL_ID . '/identificationField',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                        CURLOPT_HTTPHEADER => array(
-                            'accept: application/json',
-                            'access_token: $aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAyOTA2OTk6OiRhYWNoX2UyODI0NzBlLWZlZGMtNDcyZi1hNTYwLWFiMTQ4OTgxZTNjYw==',
-                            'Cookie: AWSALB=Zmpl9YAYJBH/KRA4XaTzbPj+++luINPoDhkSStUGqIOSAXTZg4+TcUv5kDZtOSEQhqLRVs6FUySJjuYj82W9VjqV8c3ubFNF+ciBUurNWq5QRL3fIq62J/+IbOmt; AWSALBCORS=Zmpl9YAYJBH/KRA4XaTzbPj+++luINPoDhkSStUGqIOSAXTZg4+TcUv5kDZtOSEQhqLRVs6FUySJjuYj82W9VjqV8c3ubFNF+ciBUurNWq5QRL3fIq62J/+IbOmt; AWSALBTG=W6EuNq/hjFjjLx0Da1ImFZztsT9EvbhV6LoCsP5kDwAOPNsjWYcinhvRMyuhMusXJq1YZRECShKLa8Q4P2QLCWXYTIMUJLBlah/gItrJsm+Ry4FVKPI7qwTus/Yhu4EiJIVG/VtwgBnFYYkZWkC3ha6fto4Yrhma52oBSp9rtBhY; AWSALBTGCORS=W6EuNq/hjFjjLx0Da1ImFZztsT9EvbhV6LoCsP5kDwAOPNsjWYcinhvRMyuhMusXJq1YZRECShKLa8Q4P2QLCWXYTIMUJLBlah/gItrJsm+Ry4FVKPI7qwTus/Yhu4EiJIVG/VtwgBnFYYkZWkC3ha6fto4Yrhma52oBSp9rtBhY'
-                        ),
-                    )
-                );*/
-
-                /** Boleto */
-                /*$response = curl_exec($curlBol);
-                curl_close($curlBol);*/
-
-                /** cURL para buscar o QR Code do Pix */
-                /*$curlPix = curl_init();
-                curl_setopt_array(
-                    $curlPix,
-                    array(
-                        CURLOPT_URL => 'https://www.asaas.com/api/v3/payments/' . $BOL_ID . '/pixQrCode',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                        CURLOPT_POSTFIELDS => '{"state":"AC"}',
-                        CURLOPT_HTTPHEADER => array(
-                            'accept: application/json',
-                            'content-type: application/json',
-                            'access_token: $aact_YTU5YTE0M2M2N2I4MTliNzk0YTI5N2U5MzdjNWZmNDQ6OjAwMDAwMDAwMDAwMDAyOTA2OTk6OiRhYWNoX2UyODI0NzBlLWZlZGMtNDcyZi1hNTYwLWFiMTQ4OTgxZTNjYw==',
-                            'Cookie: JSESSIONID=88872DF802C34D9B00711261C3EB7554'
-                        ),
-                    )
-                );*/
-
-                /** QR Code Pix */
-                /*$responsepIX = curl_exec($curlPix);
-                curl_close($curlPix);*/
 
 
                 $row['bol_link'] = null;

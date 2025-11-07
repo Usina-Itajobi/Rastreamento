@@ -55,7 +55,7 @@ const Reports = (props) => {
   const getVehicles = useCallback(async () => {
     try {
       setLoading(true);
-      const accessToken = await AsyncStorage.getItem('@ctracker:accessToken');
+      const accessToken = await AsyncStorage.getItem('@grupoitajobi:accessToken');
 
       const form = new FormData();
       form.append('h', accessToken);

@@ -3,7 +3,7 @@
 ## Android
 - Criar novo projeto React native
   - CRastreamento
-  - br.com.ctracker.app
+  - br.com.grupoitajobi.app
 - Adicionar chave google key para mapas
 
 ```js
@@ -48,7 +48,7 @@ newArchEnabled=false
 - Adicionar App Identifier
 
 ```js
-PRODUCT_BUNDLE_IDENTIFIER = com.ctracker.controltracker
+PRODUCT_BUNDLE_IDENTIFIER = com.grupoitajobi.controltracker
 ```
 
 - Adicionar Config Icons em info.plist

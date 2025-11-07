@@ -382,7 +382,7 @@ if (!$token || $token === '') {
                     }
 
                     $.ajax({
-                        url: 'https://api.ctracker.com.br/metronic/api/processar_redefinicao_senha.php',
+                        url: 'https://itajobi.usinaitajobi.com.br/metronic/api/processar_redefinicao_senha.php',
                         type: 'POST',
                         data: {
                             senha: SENHA,
@@ -408,8 +408,8 @@ if (!$token || $token === '') {
                                     if (!DATA_OBJ) {
                                         exibirToast('Ocorreu um erro ao redefinir a senha', 'danger');
                                     } else if (DATA_OBJ.error && DATA_OBJ.error === 'S') {
-                                        const ERROR_MESSAGE = DATA_OBJ.errormsg && DATA_OBJ.errormsg !== '' ? DATA_OBJ.errormsg : 'Ocorreu um erro ao redefinir a senha';
-                                        exibirToast(ERROR_MESSAGE, 'danger');
+                                        const ERROR_MESSAGE = DATA_OBJ.errormsg && DATA_OBJ.errormsg !== '' ? (' (' + DATA_OBJ.errormsg + ')') : '';
+                                        exibirToast('Ocorreu um erro ao redefinir a senha' + ERROR_MESSAGE, 'danger');
                                     } else {
                                         $('#input-senha').val('');
                                         $('#input-confirmacao-senha').val('');

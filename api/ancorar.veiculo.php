@@ -59,13 +59,42 @@
 	$id_cliente = $rs['id_cliente'];
 
 	
-	$idbem = $_POST['id'];
-	$qual = $_POST['qual'];
+	$idbem = $_REQUEST['id'];
+	$qual = $_REQUEST['qual'];
+
+
+
+	if($qual == 1){
+		$last_data = getLastData($con,$idbem);
+		$ancora_coords_json = json_encode(array((double)$last_data['latitudeDecimalDegrees'],(double)$last_data['longitudeDecimalDegrees']));
+		$sql_up = "update bem set ancora = '$qual',`ancora_coords`='$ancora_coords_json' where id = '$idbem'";
+	}else{
+		$sql_up = "update bem set ancora = '$qual',`ancora_coords`='[]' where id = '$idbem'";
+	}
 	
-	$sql_up = "update bem set ancora = '". $qual ."' where id = '". $idbem ."'";
+	// die($sql_up);
+	// $sql_up = "update bem set ancora = '". $qual ."' , `ancora_coords`='$ancora_coords' where id = '". $idbem ."'";
 	mysqli_query($con,$sql_up);
 
-	$retorno = array( 'msg' => 'Sinal de ancora enviado com sucesso!');
+	$retorno = array( 'msg' => 'Sinal de ancora enviado com sucesso! ');
 	echo json_encode( $retorno );
 	die;
 	
+
+	function getLastData($con,$idbem){
+		
+		$query = "SELECT 
+			l.latitudeDecimalDegrees, l.longitudeDecimalDegrees
+		FROM
+			`tracker`.`bem` b
+				LEFT JOIN
+			`tracker`.`loc_atual` l ON l.imei = b.imei
+		WHERE
+			b.id = '$idbem'
+		LIMIT 1";
+		// echo $query;
+		// die();
+		$result = mysqli_query($con, $query);
+		$last_data = mysqli_fetch_array($result);
+		return $last_data;
+	}

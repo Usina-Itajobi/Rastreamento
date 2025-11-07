@@ -111,7 +111,7 @@ const VehiclePage: React.FC<{ navigation: any; route: any }> = ({
     try {
       const accessToken = selectedAccount.h;
       const enterpriseStorage = await AsyncStorage.getItem(
-        '@ctracker:enterprise',
+        '@grupoitajobi:enterprise',
       );
       const enterprise = JSON.parse(enterpriseStorage!);
 
@@ -157,7 +157,7 @@ const VehiclePage: React.FC<{ navigation: any; route: any }> = ({
     try {
       const accessToken = selectedAccount.h;
       const enterpriseStorage = await AsyncStorage.getItem(
-        '@ctracker:enterprise',
+        '@grupoitajobi:enterprise',
       );
       const enterprise = JSON.parse(enterpriseStorage!);
 
@@ -187,7 +187,7 @@ const VehiclePage: React.FC<{ navigation: any; route: any }> = ({
     try {
       const accessToken = selectedAccount.h;
       const enterpriseStorage = await AsyncStorage.getItem(
-        '@ctracker:enterprise',
+        '@grupoitajobi:enterprise',
       );
       const enterprise = JSON.parse(enterpriseStorage!);
 
@@ -234,7 +234,7 @@ const VehiclePage: React.FC<{ navigation: any; route: any }> = ({
     try {
       const accessToken = selectedAccount.h;
       const enterpriseStorage = await AsyncStorage.getItem(
-        '@ctracker:enterprise',
+        '@grupoitajobi:enterprise',
       );
       const enterprise = JSON.parse(enterpriseStorage!);
 

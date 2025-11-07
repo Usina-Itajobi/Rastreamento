@@ -216,7 +216,7 @@
 			$stm_icone = mysqli_query($con,  "select tipbem_img from tipo_bem where tipbem_id = '". $tipbem_id ."'" );
 			$rs_icone = mysqli_fetch_assoc($stm_icone);
 			
-			$retorno[ $aux ]['imagem_icone'] = "http://www.ctracker.com.br/imagens/" . utf8_encode ( $rs_icone['tipbem_img'] );
+			$retorno[ $aux ]['imagem_icone'] = "http://itajobi.usinaitajobi.com.br/imagens/" . utf8_encode ( $rs_icone['tipbem_img'] );
 			
 			$retorno[ $aux ]['server'] = 'NY';
 			

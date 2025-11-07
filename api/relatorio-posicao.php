@@ -32,11 +32,11 @@ mysqli_select_db($con, $DB_NAME);
 $auth_user = strtolower($login);
 
 $sql =
-    "SELECT 
-					    CAST(a.id AS DECIMAL(10,0)) as id_cliente 
-				   FROM cliente a 
+    "SELECT
+					    CAST(a.id AS DECIMAL(10,0)) as id_cliente
+				   FROM cliente a
 				  WHERE (a.email = '" . $auth_user . "' OR a.apelido = '" . $auth_user . "')
-				    
+
 				  LIMIT 1";
 
 $stm = mysqli_query($con, $sql) or die('Unable to execute query.');
@@ -51,11 +51,11 @@ if (!$h) {
 
 
     $sql =
-        "SELECT 
-                                            CAST(a.id AS DECIMAL(10,0)) as id_cliente , apelido 
-                                   FROM cliente a 
+        "SELECT
+                                            CAST(a.id AS DECIMAL(10,0)) as id_cliente , apelido
+                                   FROM cliente a
                                   WHERE (a.h = '" . $h . "')
-                                    
+
                                   LIMIT 1";
 
 
@@ -67,9 +67,9 @@ if (!$h) {
 
     if ($apelido == "") {
         $sql =
-            "SELECT 
-                                            CAST(a.id AS DECIMAL(10,0)) as id_grupo , nome 
-                                   FROM grupo a 
+            "SELECT
+                                            CAST(a.id AS DECIMAL(10,0)) as id_grupo , nome
+                                   FROM grupo a
                                   WHERE 1 ";
 
         $stm  = mysqli_query($con, $sql);
