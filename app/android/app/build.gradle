@@ -82,8 +82,8 @@ android {
         applicationId "br.com.grupoitajobi.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 58
-        versionName "1.6.5"
+        versionCode 60
+        versionName "1.6.7"
     }
     signingConfigs {
         debug {
@@ -95,9 +95,9 @@ android {
 
         release {
             storeFile file('grupoitajobi-key.keystore')
-            storePassword 'grupoIta2025!'
+            storePassword 'android'
             keyAlias 'grupoitajobi-key'
-            keyPassword 'grupoIta2025!'
+            keyPassword 'android'
         }
     }
     buildTypes {
